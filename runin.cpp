@@ -10,13 +10,13 @@ profile cpo_to_profile(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &co
 
 	profile pro;
 
-	int cells = coreprof.ne.value.size();
-	if (coreprof.te.value.size() != cells)
+	int cells = coreprof.ne.value.rows();
+	if (coreprof.te.value.rows() != cells)
 		throw std::invalid_argument("Number of values is different in coreprof ne and te.");
-	if (coreprof.profiles1d.e_b.value.size() != cells)
+	if (coreprof.profiles1d.e_b.value.rows() != cells)
 		throw std::invalid_argument(
 				"Number of values is different in coreprof.ne and profiles1d.e_b.");
-	if (equilibrium.profiles_1d.b_av.size() != cells)
+	if (equilibrium.profiles_1d.b_av.rows() != cells)
 		throw std::invalid_argument(
 				"Number of values is different in coreprof.ne and equilibrium.profiles_1d.b_av.");
 
@@ -27,12 +27,12 @@ profile cpo_to_profile(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &co
 		celll.electric_field = coreprof.profiles1d.e_b.value(r) / equilibrium.profiles_1d.b_av(r);
 		celll.effective_charge = 0.0;
 
-		for (int ion = 0; ion < coreprof.compositions.ions.size(); ion++) {
+		for (int ion = 0; ion < coreprof.compositions.ions.rows(); ion++) {
 			celll.effective_charge += coreprof.ni.value(r, ion)
 					* coreprof.compositions.ions(ion).zion * coreprof.compositions.ions(ion).zion;
 		}
 
-		for (int impur = 0; impur < coreimpur.impurity.size(); impur++) {
+		for (int impur = 0; impur < coreimpur.impurity.rows(); impur++) {
 			celll.effective_charge += coreimpur.impurity(impur).nz(r)
 					* coreimpur.impurity(impur).z(r) * coreimpur.impurity(impur).z(r);
 		}
@@ -53,10 +53,10 @@ void fire(ItmNs::Itm::coreprofArray &coreprof, ItmNs::Itm::coreimpurArray &corei
 	critical_field_warning = false;
 	growth_rate_warning = false;
 
-	int slices = coreprof.array.size();
-	if (coreimpur.array.size() != slices)
+	int slices = coreprof.array.rows();
+	if (coreimpur.array.rows() != slices)
 		throw std::invalid_argument("Number of cpo slices is different in coreprof and coreimpur.");
-	if (equilibrium.array.size() != slices)
+	if (equilibrium.array.rows() != slices)
 		throw std::invalid_argument(
 				"Number of cpo slices is different in coreprof and equilibrium.");
 
