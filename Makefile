@@ -5,7 +5,7 @@ CXXFLAGS=-pthread -g -fPIC -I$(UAL)/include -I$(UAL)/lowlevel -I$(UAL)/cppinterf
 
 LDFLAGS=-L$(UAL)/lib -lUALCPPInterface -lUALLowLevel -L/afs/ipp-garching.mpg.de/itm/switm/blitz/0.10/lib -lblitz
 
-all: runin.o critical_field.o growth_rate.o
+all: librunin.a
 
 librunin.a: runin.o critical_field.o growth_rate.o
 	ar -rvs $@ $^
