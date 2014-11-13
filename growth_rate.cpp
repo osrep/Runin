@@ -6,15 +6,15 @@ double me2_c3 = me_c2 * ITM_ME * ITM_C;
 double me2_c3__e = me2_c3 / ITM_QE;
 double pi_4_e02_me2_c3__e4 = ITM_PI * 4.0 * pow(ITM_EPS0, 2) * me2_c3 / pow(ITM_QE, 4);
 
-bool is_growth_rate_over_limit(profile pro, double limit) {
+int is_growth_rate_over_limit(profile pro, double limit) {
 
 	for (std::vector<cell>::iterator it = pro.begin(); it != pro.end(); ++it) {
 		if (calculate_growth_rate(it->electron_density, it->electron_temperature,
 				it->effective_charge, it->electric_field) > limit)
-			return true;
+			return 1;
 	}
 
-	return false;
+	return 0;
 }
 
 double calculate_growth_rate(double electron_density, double electron_temperature,

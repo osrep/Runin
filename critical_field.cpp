@@ -4,15 +4,15 @@
 double e3 = pow(ITM_QE, 3);
 double pi_e02_me_4_c2 = ITM_PI * pow(ITM_EPS0, 2) * ITM_ME * 4.0 * pow(ITM_C, 2);
 
-bool is_field_critical(profile pro) {
+int is_field_critical(profile pro) {
 
 	for (std::vector<cell>::iterator it = pro.begin(); it != pro.end(); ++it) {
 		if (calculate_critical_field(it->electron_density, it->electron_temperature)
 				< it->electric_field)
-			return true;
+			return 1;
 	}
 
-	return false;
+	return 0;
 }
 
 double calculate_critical_field(double electron_density, double electron_temperature) {

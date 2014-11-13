@@ -54,10 +54,10 @@ profile cpo_to_profile(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &co
 
 void fire(ItmNs::Itm::coreprofArray &coreprof, ItmNs::Itm::coreimpurArray &coreimpur,
 		ItmNs::Itm::equilibriumArray &equilibrium, double &growth_rate_limit,
-		bool &critical_field_warning, bool &growth_rate_warning) {
+		int &critical_field_warning, int &growth_rate_warning) {
 
-	critical_field_warning = false;
-	growth_rate_warning = false;
+	critical_field_warning = 0;
+	growth_rate_warning = 0;
 
 	int slices = coreprof.array.rows();
 	if (coreimpur.array.rows() != slices)
@@ -72,11 +72,11 @@ void fire(ItmNs::Itm::coreprofArray &coreprof, ItmNs::Itm::coreimpurArray &corei
 				|| coreprof[slice].time != equilibrium[slice].time)
 			throw std::invalid_argument("Time value differs in cpo slices of the same index.");
 
-		if (!critical_field_warning)
+		if (critical_field_warning == 0)
 			critical_field_warning = is_field_critical(
 					cpo_to_profile(coreprof[slice], coreimpur[slice], equilibrium[slice]));
 
-		if (!growth_rate_warning)
+		if (growth_rate_warning == 0)
 			growth_rate_warning = is_growth_rate_over_limit(
 					cpo_to_profile(coreprof[slice], coreimpur[slice], equilibrium[slice]),
 					growth_rate_limit);
