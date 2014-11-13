@@ -20,24 +20,30 @@ profile cpo_to_profile(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &co
 		throw std::invalid_argument(
 				"Number of values is different in coreprof.ne and equilibrium.profiles_1d.b_av.");
 
-	for (int r = 0; r < cells; r++) {
+	for (int rho = 0; rho < cells; rho++) {
 		cell celll;
-		celll.electron_density = coreprof.ne.value(r);
-		celll.electron_temperature = coreprof.te.value(r);
-		celll.electric_field = coreprof.profiles1d.e_b.value(r) / equilibrium.profiles_1d.b_av(r);
+		celll.electron_density = coreprof.ne.value(rho);
+		celll.electron_temperature = coreprof.te.value(rho);
+		celll.electric_field = coreprof.profiles1d.e_b.value(rho)
+				/ equilibrium.profiles_1d.b_av(rho);
 		celll.effective_charge = 0.0;
 
 		for (int ion = 0; ion < coreprof.compositions.ions.rows(); ion++) {
-			celll.effective_charge += coreprof.ni.value(r, ion)
+			celll.effective_charge += coreprof.ni.value(rho, ion)
 					* coreprof.compositions.ions(ion).zion * coreprof.compositions.ions(ion).zion;
 		}
 
-		for (int impur = 0; impur < coreimpur.impurity.rows(); impur++) {
-			celll.effective_charge += coreimpur.impurity(impur).nz(r)
-					* coreimpur.impurity(impur).z(r) * coreimpur.impurity(impur).z(r);
+		for (int impurity = 0; impurity < coreimpur.impurity.rows(); impurity++) {
+			for (int ionization_degree = 0;
+					ionization_degree < coreimpur.impurity(impurity).z.extent(1);
+					ionization_degree++) {
+				celll.effective_charge += coreimpur.impurity(impurity).nz(rho, ionization_degree)
+						* coreimpur.impurity(impurity).z(rho, ionization_degree)
+						* coreimpur.impurity(impurity).z(rho, ionization_degree);
+			}
 		}
 
-		// Assume sum of n_i * Z_i equals electron density because of quasi-neutrality
+// Assume sum of n_i * Z_i equals electron density because of quasi-neutrality
 		celll.effective_charge /= celll.electron_density;
 
 		pro.push_back(celll);
