@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cmath>
 #include <stdexcept>
 #include <UALClasses.h>
 
@@ -54,6 +55,10 @@ profile cpo_to_profile(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &co
 	return pro;
 }
 
+bool equal(double a, double b, double tolerance) {
+	return abs(a - b) * 2.0 > (a + b) * tolerance;
+}
+
 void fire(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur,
 		ItmNs::Itm::equilibrium &equilibrium, int &critical_field_warning,
 		int &growth_rate_warning) {
@@ -80,8 +85,8 @@ void fire(ItmNs::Itm::coreprofArray &coreprof, ItmNs::Itm::coreimpurArray &corei
 
 	for (int slice = 0; slice < slices; slice++) {
 
-		if (coreprof[slice].time != coreimpur[slice].time
-				|| coreprof[slice].time != equilibrium[slice].time)
+		if (!equal(coreprof[slice].time, coreimpur[slice].time, 0.01)
+				|| !equal(coreprof[slice].time, equilibrium[slice].time, 0.01))
 			throw std::invalid_argument("Time value differs in cpo slices of the same index.");
 
 		if (critical_field_warning == 0)
