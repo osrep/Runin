@@ -359,8 +359,8 @@
       </default>
     </TupleP>
   </tupleParams>
-  <actor>Runin</actor>
-  <actorFolder>eu/itm/Runin</actorFolder>
+  <actor>runaway_indicator</actor>
+  <actorFolder>eu/itm/runaway_indicator</actorFolder>
   <ualFolder>/afs/ipp/itm/switm/ual/4.10b.8_R2.1.0</ualFolder>
   <returnType serialization="custom">
     <unserializable-parents/>

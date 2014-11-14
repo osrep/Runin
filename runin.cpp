@@ -52,6 +52,16 @@ profile cpo_to_profile(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &co
 	return pro;
 }
 
+void fire(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur,
+		ItmNs::Itm::equilibrium &equilibrium, double &growth_rate_limit,
+		int &critical_field_warning, int &growth_rate_warning) {
+
+	critical_field_warning = is_field_critical(cpo_to_profile(coreprof, coreimpur, equilibrium));
+
+	growth_rate_warning = is_growth_rate_over_limit(
+			cpo_to_profile(coreprof, coreimpur, equilibrium), growth_rate_limit);
+}
+
 void fire(ItmNs::Itm::coreprofArray &coreprof, ItmNs::Itm::coreimpurArray &coreimpur,
 		ItmNs::Itm::equilibriumArray &equilibrium, double &growth_rate_limit,
 		int &critical_field_warning, int &growth_rate_warning) {
