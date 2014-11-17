@@ -6,6 +6,9 @@ bool equal(double a, double b, double tolerance) {
 }
 
 int binary_search(Array<double, 1> &array, int first, int last, double search_key) {
+	if (first == last)
+		return first;
+
 	if (first > last)
 		return -1;
 
@@ -20,7 +23,7 @@ int binary_search(Array<double, 1> &array, int first, int last, double search_ke
 }
 
 int binary_search(Array<double, 1> &array, double search_key) {
-	return binary_search(array, 0, array.rows(), search_key);
+	return binary_search(array, 0, array.rows() - 2, search_key);
 }
 
 double interpolate(Array<double, 1> &x, Array<double, 1> &y, double xa) {
