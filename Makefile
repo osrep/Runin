@@ -7,7 +7,7 @@ LDFLAGS=-L$(UAL)/lib -lUALCPPInterface -lUALLowLevel -L/afs/ipp-garching.mpg.de/
 
 all: librunin.a
 
-librunin.a: runin.o critical_field.o growth_rate.o
+librunin.a: runin.o cpo_utils.o critical_field.o growth_rate.o
 	ar -rvs $@ $^
 
 .o: .cpp

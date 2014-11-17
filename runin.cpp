@@ -3,61 +3,11 @@
 #include <stdexcept>
 #include <UALClasses.h>
 
+#include "cpo_utils.h"
 #include "critical_field.h"
 #include "growth_rate.h"
 
 double growth_rate_limit = 1e12;
-
-profile cpo_to_profile(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur,
-		ItmNs::Itm::equilibrium &equilibrium) {
-
-	profile pro;
-
-	int cells = coreprof.ne.value.rows();
-	if (coreprof.te.value.rows() != cells)
-		throw std::invalid_argument("Number of values is different in coreprof ne and te.");
-	if (coreprof.profiles1d.e_b.value.rows() != cells)
-		throw std::invalid_argument(
-				"Number of values is different in coreprof.ne and profiles1d.e_b.");
-	if (equilibrium.profiles_1d.b_av.rows() != cells)
-		throw std::invalid_argument(
-				"Number of values is different in coreprof.ne and equilibrium.profiles_1d.b_av.");
-
-	for (int rho = 0; rho < cells; rho++) {
-		cell celll;
-		celll.electron_density = coreprof.ne.value(rho);
-		celll.electron_temperature = coreprof.te.value(rho);
-		celll.electric_field = coreprof.profiles1d.e_b.value(rho)
-				/ equilibrium.profiles_1d.b_av(rho);
-		celll.effective_charge = 0.0;
-
-		for (int ion = 0; ion < coreprof.compositions.ions.rows(); ion++) {
-			celll.effective_charge += coreprof.ni.value(rho, ion)
-					* coreprof.compositions.ions(ion).zion * coreprof.compositions.ions(ion).zion;
-		}
-
-		for (int impurity = 0; impurity < coreimpur.impurity.rows(); impurity++) {
-			for (int ionization_degree = 0;
-					ionization_degree < coreimpur.impurity(impurity).z.extent(1);
-					ionization_degree++) {
-				celll.effective_charge += coreimpur.impurity(impurity).nz(rho, ionization_degree)
-						* coreimpur.impurity(impurity).z(rho, ionization_degree)
-						* coreimpur.impurity(impurity).z(rho, ionization_degree);
-			}
-		}
-
-// Assume sum of n_i * Z_i equals electron density because of quasi-neutrality
-		celll.effective_charge /= celll.electron_density;
-
-		pro.push_back(celll);
-	}
-
-	return pro;
-}
-
-bool equal(double a, double b, double tolerance) {
-	return abs(a - b) * 2.0 > (a + b) * tolerance;
-}
 
 void fire(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur,
 		ItmNs::Itm::equilibrium &equilibrium, int &critical_field_warning,
