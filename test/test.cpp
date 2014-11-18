@@ -46,7 +46,7 @@ TEST(Interpolate, Matching) {
 	y = 0.0, 1.0, 2.0, 4.0, 8.0, 4.0, 2.0, 0.0, -2.0, 0.0;
 
 	for (int i = 0; i < x.rows(); i++) {
-		EXPECT_EQ(y(i), interpolate(x, y, x(i)));
+		EXPECT_DOUBLE_EQ(y(i), interpolate(x, y, x(i)));
 	}
 }
 
@@ -54,10 +54,10 @@ TEST(Interpolate, Extrapolate) {
 	blitz::Array<double, 1> x(10), y(10);
 	x = 0.0, 1.0, 2.0, 3.0, 4.0, 4.2, 4.6, 8.0, 8.5, 9.0;
 	y = 0.0, 1.0, 2.0, 4.0, 8.0, 4.0, 2.0, 0.0, -2.0, -1.0;
-	EXPECT_EQ(0.0, interpolate(x, y, -1.2));
-	EXPECT_EQ(0.0, interpolate(x, y, -100.2));
-	EXPECT_EQ(-1.0, interpolate(x, y, 9.1));
-	EXPECT_EQ(-1.0, interpolate(x, y, 900.1));
+	EXPECT_DOUBLE_EQ(0.0, interpolate(x, y, -1.2));
+	EXPECT_DOUBLE_EQ(0.0, interpolate(x, y, -100.2));
+	EXPECT_DOUBLE_EQ(-1.0, interpolate(x, y, 9.1));
+	EXPECT_DOUBLE_EQ(-1.0, interpolate(x, y, 900.1));
 
 }
 
@@ -124,46 +124,46 @@ TEST(CpoToProfil, ElectronDensity) {
 	create_cpo();
 	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
 
-	EXPECT_EQ(5, pro.size());
+	ASSERT_EQ(5, pro.size());
 
-	EXPECT_EQ(10.0, pro[0].electron_density);
-	EXPECT_EQ(11.0, pro[1].electron_density);
-	EXPECT_EQ(12.0, pro[2].electron_density);
-	EXPECT_EQ(14.0, pro[3].electron_density);
-	EXPECT_EQ(18.0, pro[4].electron_density);
+	EXPECT_DOUBLE_EQ(10.0, pro[0].electron_density);
+	EXPECT_DOUBLE_EQ(11.0, pro[1].electron_density);
+	EXPECT_DOUBLE_EQ(12.0, pro[2].electron_density);
+	EXPECT_DOUBLE_EQ(14.0, pro[3].electron_density);
+	EXPECT_DOUBLE_EQ(18.0, pro[4].electron_density);
 }
 
 TEST(CpoToProfil, ElectronTemperature) {
 	create_cpo();
 	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
 
-	EXPECT_EQ(5, pro.size());
+	ASSERT_EQ(5, pro.size());
 
-	EXPECT_EQ(20.0, pro[0].electron_temperature);
-	EXPECT_EQ(21.0, pro[1].electron_temperature);
-	EXPECT_EQ(22.0, pro[2].electron_temperature);
-	EXPECT_EQ(24.0, pro[3].electron_temperature);
-	EXPECT_EQ(28.0, pro[4].electron_temperature);
+	EXPECT_DOUBLE_EQ(20.0, pro[0].electron_temperature);
+	EXPECT_DOUBLE_EQ(21.0, pro[1].electron_temperature);
+	EXPECT_DOUBLE_EQ(22.0, pro[2].electron_temperature);
+	EXPECT_DOUBLE_EQ(24.0, pro[3].electron_temperature);
+	EXPECT_DOUBLE_EQ(28.0, pro[4].electron_temperature);
 }
 
 TEST(CpoToProfil, ElectricField) {
 	create_cpo();
 	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
 
-	EXPECT_EQ(5, pro.size());
+	ASSERT_EQ(5, pro.size());
 
-	EXPECT_EQ(1.0 / 5.5, pro[0].electric_field);
-	EXPECT_EQ(2.0 / 1.5, pro[1].electric_field);
-	EXPECT_EQ(3.0 / 2.5, pro[2].electric_field);
-	EXPECT_EQ(5.0 / 1.9, pro[3].electric_field);
-	EXPECT_EQ(9.0 / 7.6, pro[4].electric_field);
+	EXPECT_DOUBLE_EQ(1.0 / 5.5, pro[0].electric_field);
+	EXPECT_DOUBLE_EQ(2.0 / 1.5, pro[1].electric_field);
+	EXPECT_DOUBLE_EQ(3.0 / 2.5, pro[2].electric_field);
+	EXPECT_DOUBLE_EQ(5.0 / 1.9, pro[3].electric_field);
+	EXPECT_DOUBLE_EQ(9.0 / 7.6, pro[4].electric_field);
 }
 
 TEST(CpoToProfil, EffectiveCharge) {
 	create_cpo();
 	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
 
-	EXPECT_EQ(5, pro.size());
+	ASSERT_EQ(5, pro.size());
 
 	EXPECT_NEAR(3.46000, pro[0].effective_charge, 0.00001);
 	EXPECT_NEAR(131.24, pro[3].effective_charge, 0.01);
