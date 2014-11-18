@@ -23,6 +23,9 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 	double coulomb_log = 14.9 - 0.5 * log(electron_density * 1e-20)
 			+ log(electron_temperature * 1e-3);
 
+	// To SI
+	electron_temperature *= ITM_QE;
+
 	double tao = pi_4_e02_me2_c3__e4 / (electron_density * coulomb_log);
 
 	double Ed = me2_c3__e / (tao * electron_temperature);
