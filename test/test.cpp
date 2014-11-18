@@ -2,11 +2,11 @@
 #include "../cpo_utils.h"
 
 TEST(Equal, Tolerance) {
-	EXPECT_TRUE(equal(1.0, 1.1, 0.1));
-	EXPECT_TRUE(equal(-10.0, -11.0, 0.1));
-	EXPECT_TRUE(equal(-10.0, 10.0, 2.0));
-	EXPECT_FALSE(equal(1.0, 1.2, 0.1));
-	EXPECT_FALSE(equal(-10.0, -12.0, 0.1));
+	ASSERT_TRUE(equal(1.0, 1.1, 0.1));
+	ASSERT_TRUE(equal(-10.0, -11.0, 0.1));
+	ASSERT_TRUE(equal(-10.0, 10.0, 2.0));
+	ASSERT_FALSE(equal(1.0, 1.2, 0.1));
+	ASSERT_FALSE(equal(-10.0, -12.0, 0.1));
 }
 
 TEST(BinarySearch, FindExistingValue) {
@@ -73,4 +73,96 @@ TEST(Interpolate, Intrapolate) {
 	EXPECT_TRUE(equal(1.0, interpolate(x, y, 6.3), 0.000001));
 	EXPECT_TRUE(equal(-1.6, interpolate(x, y, 8.4), 0.000001));
 	EXPECT_TRUE(equal(-1.0, interpolate(x, y, 8.75), 0.000001));
+}
+
+ItmNs::Itm::coreprof coreprof;
+ItmNs::Itm::coreimpur coreimpur;
+ItmNs::Itm::equilibrium equilibrium;
+
+void create_cpo() {
+	coreprof.rho_tor.resize(5);
+	coreprof.rho_tor = 0.0, 1.0, 2.0, 4.0, 8.0;
+
+	coreprof.ne.value.resize(5);
+	coreprof.te.value.resize(5);
+	coreprof.ne.value = 10.0, 11.0, 12.0, 14.0, 18.0;
+	coreprof.te.value = 20.0, 21.0, 22.0, 24.0, 28.0;
+
+	coreprof.profiles1d.e_b.value.resize(5);
+	coreprof.profiles1d.e_b.value = 1.0, 2.0, 3.0, 5.0, 9.0;
+
+	equilibrium.profiles_1d.rho_tor.resize(8);
+	equilibrium.profiles_1d.rho_tor = 0.0, 1.0, 1.5, 2.0, 5.0, 10.0, 12.0, 15.0;
+	equilibrium.profiles_1d.b_av.resize(8);
+	equilibrium.profiles_1d.b_av = 5.5, 1.5, 5.5, 2.5, 1.6, 11.6, 15.5, 55.5;
+
+	coreprof.ni.value.resize(5, 2);
+	coreprof.ni.value = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
+
+	coreprof.compositions.ions.resize(2);
+	coreprof.compositions.ions(0).zion = 2.0;
+	coreprof.compositions.ions(1).zion = 3.0;
+
+	coreimpur.rho_tor.resize(6);
+	coreimpur.rho_tor = 0.0, 1.0, 1.5, 2.0, 6.0, 10.0;
+
+	coreimpur.impurity.resize(2);
+	coreimpur.impurity(0).z.resize(6, 2);
+	coreimpur.impurity(0).z = 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24;
+	coreimpur.impurity(1).z.resize(6, 2);
+	coreimpur.impurity(1).z = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
+
+	coreimpur.impurity(0).nz.resize(6, 2);
+	coreimpur.impurity(0).nz = 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2;
+	coreimpur.impurity(1).nz.resize(6, 2);
+	coreimpur.impurity(1).nz = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
+}
+
+TEST(CpoToProfil, ElectronDensity) {
+	create_cpo();
+	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
+
+	EXPECT_EQ(5, pro.size());
+
+	EXPECT_EQ(10.0, pro[0].electron_density);
+	EXPECT_EQ(11.0, pro[1].electron_density);
+	EXPECT_EQ(12.0, pro[2].electron_density);
+	EXPECT_EQ(14.0, pro[3].electron_density);
+	EXPECT_EQ(18.0, pro[4].electron_density);
+}
+
+TEST(CpoToProfil, ElectronTemperature) {
+	create_cpo();
+	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
+
+	EXPECT_EQ(5, pro.size());
+
+	EXPECT_EQ(20.0, pro[0].electron_temperature);
+	EXPECT_EQ(21.0, pro[1].electron_temperature);
+	EXPECT_EQ(22.0, pro[2].electron_temperature);
+	EXPECT_EQ(24.0, pro[3].electron_temperature);
+	EXPECT_EQ(28.0, pro[4].electron_temperature);
+}
+
+TEST(CpoToProfil, ElectricField) {
+	create_cpo();
+	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
+
+	EXPECT_EQ(5, pro.size());
+
+	EXPECT_EQ(1.0 / 5.5, pro[0].electric_field);
+	EXPECT_EQ(2.0 / 1.5, pro[1].electric_field);
+	EXPECT_EQ(3.0 / 2.5, pro[2].electric_field);
+	EXPECT_EQ(5.0 / 1.9, pro[3].electric_field);
+	EXPECT_EQ(9.0 / 7.6, pro[4].electric_field);
+}
+
+TEST(CpoToProfil, EffectiveCharge) {
+	create_cpo();
+	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
+
+	EXPECT_EQ(5, pro.size());
+
+	EXPECT_TRUE(equal(3.46, pro[0].effective_charge, 0.000001));
+	EXPECT_TRUE(equal(131.24286, pro[3].effective_charge, 0.0001));
 }
