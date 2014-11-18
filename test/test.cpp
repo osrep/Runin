@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "../cpo_utils.h"
+#include "../critical_field.h"
 
 TEST(Equal, Tolerance) {
 	ASSERT_TRUE(equal(1.0, 1.1, 0.1));
@@ -165,4 +166,27 @@ TEST(CpoToProfil, EffectiveCharge) {
 
 	EXPECT_TRUE(equal(3.46, pro[0].effective_charge, 0.000001));
 	EXPECT_TRUE(equal(131.24286, pro[3].effective_charge, 0.0001));
+}
+
+TEST(CriticalField, CalculateCriticalField) {
+	EXPECT_NEAR(0.93588, calculate_critical_field(1e21, 1e5), 0.0001);
+}
+
+TEST(CriticalField, IsFieldCritical) {
+	cell cell1, cell2;
+
+	cell1.electron_density = 1.1e21;
+	cell1.electron_temperature = 1e5;
+	cell1.electric_field = 0.93588;
+
+	cell2.electron_density = 0.9e21;
+	cell2.electron_temperature = 1e5;
+	cell2.electric_field = 0.93588;
+
+	profile pro;
+	pro.push_back(cell1);
+	EXPECT_EQ(0, is_field_critical(pro));
+
+	pro.push_back(cell2);
+	EXPECT_EQ(1, is_field_critical(pro));
 }
