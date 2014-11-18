@@ -3,11 +3,11 @@
 #include "../critical_field.h"
 
 TEST(Equal, Tolerance) {
-	ASSERT_TRUE(equal(1.0, 1.1, 0.1));
-	ASSERT_TRUE(equal(-10.0, -11.0, 0.1));
-	ASSERT_TRUE(equal(-10.0, 10.0, 2.0));
-	ASSERT_FALSE(equal(1.0, 1.2, 0.1));
-	ASSERT_FALSE(equal(-10.0, -12.0, 0.1));
+	EXPECT_TRUE(equal(1.0, 1.1, 0.1));
+	EXPECT_TRUE(equal(-10.0, -11.0, 0.1));
+	EXPECT_TRUE(equal(-10.0, 10.0, 2.0));
+	EXPECT_FALSE(equal(1.0, 1.2, 0.1));
+	EXPECT_FALSE(equal(-10.0, -12.0, 0.1));
 }
 
 TEST(BinarySearch, FindExistingValue) {
@@ -64,16 +64,16 @@ TEST(Interpolate, Intrapolate) {
 	blitz::Array<double, 1> x(10), y(10);
 	x = 0.0, 1.0, 2.0, 3.0, 4.0, 4.2, 4.6, 8.0, 8.5, 9.0;
 	y = 0.0, 1.0, 2.0, 4.0, 8.0, 4.0, 2.0, 0.0, -2.0, 0.0;
-	EXPECT_TRUE(equal(0.5, interpolate(x, y, 0.5), 0.000001));
-	EXPECT_TRUE(equal(1.5, interpolate(x, y, 1.5), 0.000001));
-	EXPECT_TRUE(equal(3.0, interpolate(x, y, 2.5), 0.000001));
-	EXPECT_TRUE(equal(4.4, interpolate(x, y, 3.1), 0.000001));
-	EXPECT_TRUE(equal(7.6, interpolate(x, y, 3.9), 0.000001));
-	EXPECT_TRUE(equal(5.0, interpolate(x, y, 4.15), 0.000001));
-	EXPECT_TRUE(equal(3.75, interpolate(x, y, 4.25), 0.000001));
-	EXPECT_TRUE(equal(1.0, interpolate(x, y, 6.3), 0.000001));
-	EXPECT_TRUE(equal(-1.6, interpolate(x, y, 8.4), 0.000001));
-	EXPECT_TRUE(equal(-1.0, interpolate(x, y, 8.75), 0.000001));
+	EXPECT_NEAR(0.5, interpolate(x, y, 0.5), 0.000001);
+	EXPECT_NEAR(1.5, interpolate(x, y, 1.5), 0.000001);
+	EXPECT_NEAR(3.0, interpolate(x, y, 2.5), 0.000001);
+	EXPECT_NEAR(4.4, interpolate(x, y, 3.1), 0.000001);
+	EXPECT_NEAR(7.6, interpolate(x, y, 3.9), 0.000001);
+	EXPECT_NEAR(5.0, interpolate(x, y, 4.15), 0.000001);
+	EXPECT_NEAR(3.75, interpolate(x, y, 4.25), 0.000001);
+	EXPECT_NEAR(1.0, interpolate(x, y, 6.3), 0.000001);
+	EXPECT_NEAR(-1.6, interpolate(x, y, 8.4), 0.000001);
+	EXPECT_NEAR(-1.0, interpolate(x, y, 8.75), 0.000001);
 }
 
 ItmNs::Itm::coreprof coreprof;
@@ -164,8 +164,8 @@ TEST(CpoToProfil, EffectiveCharge) {
 
 	EXPECT_EQ(5, pro.size());
 
-	EXPECT_TRUE(equal(3.46, pro[0].effective_charge, 0.000001));
-	EXPECT_TRUE(equal(131.24286, pro[3].effective_charge, 0.0001));
+	EXPECT_NEAR(3.46000, pro[0].effective_charge, 0.00001);
+	EXPECT_NEAR(131.24, pro[3].effective_charge, 0.01);
 }
 
 TEST(CriticalField, CalculateCriticalField) {
