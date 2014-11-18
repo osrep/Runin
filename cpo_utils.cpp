@@ -5,7 +5,7 @@ bool equal(double a, double b, double tolerance) {
 	return abs(a - b) * 2.0 <= (abs(a) + abs(b)) * tolerance;
 }
 
-int binary_search(Array<double, 1> &array, int first, int last, double search_key) {
+int binary_search(const Array<double, 1> &array, int first, int last, double search_key) {
 	if (first == last)
 		return first;
 
@@ -22,11 +22,11 @@ int binary_search(Array<double, 1> &array, int first, int last, double search_ke
 		return binary_search(array, mid + 1, last, search_key);
 }
 
-int binary_search(Array<double, 1> &array, double search_key) {
+int binary_search(const Array<double, 1> &array, double search_key) {
 	return binary_search(array, 0, array.rows() - 2, search_key);
 }
 
-double interpolate(Array<double, 1> &x, Array<double, 1> &y, double xa) {
+double interpolate(const Array<double, 1> &x, const Array<double, 1> &y, double xa) {
 
 	int rows = x.rows();
 	if (rows != y.rows())
@@ -44,8 +44,8 @@ double interpolate(Array<double, 1> &x, Array<double, 1> &y, double xa) {
 	return y(index) + (y(index + 1) - y(index)) / (x(index + 1) - x(index)) * (xa - x(index));
 }
 
-profile cpo_to_profile(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur,
-		ItmNs::Itm::equilibrium &equilibrium) {
+profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::coreimpur &coreimpur,
+		const ItmNs::Itm::equilibrium &equilibrium) {
 
 	profile pro;
 
@@ -63,8 +63,8 @@ profile cpo_to_profile(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &co
 		celll.electric_field = coreprof.profiles1d.e_b.value(rho)
 				/ interpolate(equilibrium.profiles_1d.rho_tor, equilibrium.profiles_1d.b_av,
 						coreprof.rho_tor(rho));
-		celll.effective_charge = 0.0;
 
+		celll.effective_charge = 0.0;
 		for (int ion = 0; ion < coreprof.compositions.ions.rows(); ion++) {
 			celll.effective_charge += coreprof.ni.value(rho, ion)
 					* coreprof.compositions.ions(ion).zion * coreprof.compositions.ions(ion).zion;

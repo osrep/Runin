@@ -6,11 +6,11 @@
 
 bool equal(double a, double b, double tolerance);
 
-int binary_search(Array<double, 1> &array, double search_key);
+int binary_search(const Array<double, 1> &array, double search_key);
 
-double interpolate(Array<double, 1> &x, Array<double, 1> &y, double xa);
+double interpolate(const Array<double, 1> &x, const Array<double, 1> &y, double xa);
 
-profile cpo_to_profile(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur,
-		ItmNs::Itm::equilibrium &equilibrium);
+profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::coreimpur &coreimpur,
+		const ItmNs::Itm::equilibrium &equilibrium);
 
 #endif /* CPO_UTILS_H_ */
