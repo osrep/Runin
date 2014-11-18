@@ -20,8 +20,8 @@ int is_growth_rate_over_limit(profile pro, double limit) {
 double calculate_growth_rate(double electron_density, double electron_temperature,
 		double effective_charge, double electric_field) {
 
-	double coulomb_log = 23.5 - log(sqrt(electron_density) * pow(electron_temperature, -1.25))
-			- sqrt(10e-5 + pow((log(electron_temperature) - 2.0), 2) / 16.0);
+	double coulomb_log = 14.9 - 0.5 * log(electron_density * 1e-20)
+			+ log(electron_temperature * 1e-3);
 
 	double tao = pi_4_e02_me2_c3__e4 / (electron_density * coulomb_log);
 

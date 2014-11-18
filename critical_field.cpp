@@ -17,8 +17,8 @@ int is_field_critical(profile pro) {
 
 double calculate_critical_field(double electron_density, double electron_temperature) {
 
-	double coulomb_log = 23.5 - log(sqrt(electron_density) * pow(electron_temperature, -1.25))
-			- sqrt(10e-5 + pow((log(electron_temperature) - 2.0), 2) / 16.0);
+	double coulomb_log = 14.9 - 0.5 * log(electron_density * 1e-20)
+			+ log(electron_temperature * 1e-3);
 
 	return electron_density * e3 * coulomb_log / pi_e02_me_4_c2;
 }
