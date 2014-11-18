@@ -34,11 +34,11 @@ double interpolate(Array<double, 1> &x, Array<double, 1> &y, double xa) {
 
 	if (xa <= x(0))
 		return y(0);
-	if (xa >= x(x.rows()))
-		return y(y.rows());
+	if (xa >= x(x.rows() - 1))
+		return y(y.rows() - 1);
 
 	int index = binary_search(x, xa);
-	if (rows < 0)
+	if (index < 0)
 		throw std::invalid_argument("Binary search failed.");
 
 	return y(index) + (y(index + 1) - y(index)) / (x(index + 1) - x(index)) * (xa - x(index));
