@@ -90,8 +90,10 @@ void create_cpo() {
 	coreprof.ne.value = 10.0, 11.0, 12.0, 14.0, 18.0;
 	coreprof.te.value = 20.0, 21.0, 22.0, 24.0, 28.0;
 
-	coreprof.profiles1d.e_b.value.resize(5);
-	coreprof.profiles1d.e_b.value = 1.0, 2.0, 3.0, 5.0, 9.0;
+	coreprof.toroid_field.b0 = 2.0;
+
+	coreprof.profiles1d.eparallel.value.resize(5);
+	coreprof.profiles1d.eparallel.value = 1.0, 2.0, 3.0, 5.0, 9.0;
 
 	equilibrium.profiles_1d.rho_tor.resize(8);
 	equilibrium.profiles_1d.rho_tor = 0.0, 1.0, 1.5, 2.0, 5.0, 10.0, 12.0, 15.0;
@@ -152,11 +154,11 @@ TEST(CpoToProfil, ElectricField) {
 
 	ASSERT_EQ(5, pro.size());
 
-	EXPECT_DOUBLE_EQ(1.0 / 5.5, pro[0].electric_field);
-	EXPECT_DOUBLE_EQ(2.0 / 1.5, pro[1].electric_field);
-	EXPECT_DOUBLE_EQ(3.0 / 2.5, pro[2].electric_field);
-	EXPECT_DOUBLE_EQ(5.0 / 1.9, pro[3].electric_field);
-	EXPECT_DOUBLE_EQ(9.0 / 7.6, pro[4].electric_field);
+	EXPECT_DOUBLE_EQ(1.0 * 2.0 / 5.5, pro[0].electric_field);
+	EXPECT_DOUBLE_EQ(2.0 * 2.0 / 1.5, pro[1].electric_field);
+	EXPECT_DOUBLE_EQ(3.0 * 2.0 / 2.5, pro[2].electric_field);
+	EXPECT_DOUBLE_EQ(5.0 * 2.0 / 1.9, pro[3].electric_field);
+	EXPECT_DOUBLE_EQ(9.0 * 2.0 / 7.6, pro[4].electric_field);
 }
 
 TEST(CpoToProfil, EffectiveCharge) {

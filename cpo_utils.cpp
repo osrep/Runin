@@ -52,15 +52,15 @@ profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::c
 	int cells = coreprof.ne.value.rows();
 	if (coreprof.te.value.rows() != cells)
 		throw std::invalid_argument("Number of values is different in coreprof ne and te.");
-	if (coreprof.profiles1d.e_b.value.rows() != cells)
+	if (coreprof.profiles1d.eparallel.value.rows() != cells)
 		throw std::invalid_argument(
-				"Number of values is different in coreprof.ne and profiles1d.e_b.");
+				"Number of values is different in coreprof.ne and coreprof.profiles1d.eparallel.");
 
 	for (int rho = 0; rho < cells; rho++) {
 		cell celll;
 		celll.electron_density = coreprof.ne.value(rho);
 		celll.electron_temperature = coreprof.te.value(rho);
-		celll.electric_field = coreprof.profiles1d.e_b.value(rho)
+		celll.electric_field = coreprof.profiles1d.eparallel.value(rho) * coreprof.toroid_field.b0
 				/ interpolate(equilibrium.profiles_1d.rho_tor, equilibrium.profiles_1d.b_av,
 						coreprof.rho_tor(rho));
 
