@@ -11,6 +11,8 @@
 #define ITM_MU0		4.0e-7 * ITM_PI  // vacuum permeability
 #define ITM_EPS0	1.0 / (ITM_MU0 * ITM_C * ITM_C)
 
+#define ITM_ILLEGAL_INT	-999999999
+
 struct cell {
 	double electron_density;
 	double electron_temperature;
