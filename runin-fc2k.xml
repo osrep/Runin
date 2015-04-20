@@ -1,5 +1,5 @@
 <ActorGenerator>
-  <version>V4.7b</version>
+  <version>V4.8b</version>
   <paramFile>empty</paramFile>
   <defaultparamFile>empty</defaultparamFile>
   <paramXsdFile>empty</paramXsdFile>
@@ -297,6 +297,15 @@
             <string>1</string>
             <string>0</string>
             <string>equilibrium</string>
+          </vector>
+          <vector>
+            <string>double</string>
+            <string>1</string>
+            <string>0</string>
+            <string>0</string>
+            <string>1</string>
+            <string>1</string>
+            <string>growth_rate_limit</string>
           </vector>
           <vector>
             <string>integer</string>
@@ -663,6 +672,7 @@
   <HasCodeParam>false</HasCodeParam>
   <MPI>false</MPI>
   <BATCH>false</BATCH>
+  <OPENMP>false</OPENMP>
   <InitFunc>false</InitFunc>
   <FC2Kpath>/afs/ipp/itm/switm/ihm/fc2k/4.10b/KeplerJniActorGen/bin/..</FC2Kpath>
 </ActorGenerator>

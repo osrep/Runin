@@ -9,11 +9,11 @@
 #include "critical_field.h"
 #include "growth_rate.h"
 
-double growth_rate_limit = 1e12;
+// double growth_rate_limit = 1e12;
 
 void fire(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur,
-		ItmNs::Itm::equilibrium &equilibrium, int &critical_field_warning,
-		int &growth_rate_warning) {
+		ItmNs::Itm::equilibrium &equilibrium, double &growth_rate_limit,
+		int &critical_field_warning, int &growth_rate_warning) {
 
 	try {
 		critical_field_warning = is_field_critical(
@@ -31,8 +31,8 @@ void fire(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur,
 }
 
 void fire(ItmNs::Itm::coreprofArray &coreprof, ItmNs::Itm::coreimpurArray &coreimpur,
-		ItmNs::Itm::equilibriumArray &equilibrium, int &critical_field_warning,
-		int &growth_rate_warning) {
+		ItmNs::Itm::equilibriumArray &equilibrium, double &growth_rate_limit,
+		int &critical_field_warning, int &growth_rate_warning) {
 
 	critical_field_warning = 0;
 	growth_rate_warning = 0;
