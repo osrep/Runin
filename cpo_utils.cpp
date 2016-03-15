@@ -130,6 +130,8 @@ profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::c
 				celll.effective_charge += nz * z * z;
 			}
 		}
+		
+		// rho_tor: toroidal flux coordinate
 
 		// Assume sum of n_i * Z_i equals electron density because of quasi-neutrality
 		celll.effective_charge /= celll.electron_density;
