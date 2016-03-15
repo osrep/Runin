@@ -74,17 +74,19 @@ profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::c
 
 	profile pro;
 
-	/*! read electron density profile
-	length of dataset: cells
-	*/
+	//! read electron density profile length of dataset: cells	
 	int cells = coreprof.ne.value.rows();
 	
-	//! read electron temperature profile
+	//! read electron temperature profile length of dataset, comparing with cells
 	if (coreprof.te.value.rows() != cells)
 		throw std::invalid_argument("Number of values is different in coreprof ne and te.");
+
+	//! read eparallel profile length of dataset, comparing with cells
 	if (coreprof.profiles1d.eparallel.value.rows() != cells)
 		throw std::invalid_argument(
 				"Number of values is different in coreprof.ne and coreprof.profiles1d.eparallel.");
+
+    //! read data in every $\rho$ 
 
 	for (int rho = 0; rho < cells; rho++) {
 		cell celll;
@@ -93,13 +95,13 @@ profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::c
 		
 		/*! local electric field
 			\f[ E = \frac{E_\parallel(\rho) B_0}{B_\mathrm{av}(\rho)} \f]
-			where B_\mathrm{av} is known on discreate \f$R \f$ major radius and interpolated at $\rho$ major radius
+			where B_\mathrm{av} is known on discreate \f$R \f$ major radius and interpolated at $\rho$ normalised minor radius
 		*/
 		celll.electric_field = coreprof.profiles1d.eparallel.value(rho) * coreprof.toroid_field.b0
 				/ interpolate(equilibrium.profiles_1d.rho_tor, equilibrium.profiles_1d.b_av,
 						coreprof.rho_tor(rho));
 
-		//! counting ions in \a rho cell
+		//! total sum of electric charge in \a rho cell for all ion population
 		celll.effective_charge = 0.0;
 		for (int ion = 0; ion < coreprof.compositions.ions.rows(); ion++) {
 			celll.effective_charge += coreprof.ni.value(rho, ion)
@@ -107,7 +109,7 @@ profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::c
 		}
 
 
-		//! counting impurities in \a rho cell
+		//! total sum of electric charge in \a rho cell for all impurity population
 		for (int impurity = 0; impurity < coreimpur.impurity.rows(); impurity++) {
 
 			for (int ionization_degree = 0;
