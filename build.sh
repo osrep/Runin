@@ -1,1 +1,2 @@
+#!/bin/tcsh -fe
 make
