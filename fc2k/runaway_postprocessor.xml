@@ -3,7 +3,7 @@
   <paramFile>empty</paramFile>
   <defaultparamFile>empty</defaultparamFile>
   <paramXsdFile>empty</paramXsdFile>
-  <fFile>/u/maradi/itmwork/runin/librunin.a</fFile>
+  <fFile>librunin.a</fFile>
   <subrt>fire</subrt>
   <tupleParams serialization="custom">
     <unserializable-parents/>
