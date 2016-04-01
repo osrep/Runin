@@ -6,7 +6,8 @@ CXX=g++
 #LDFLAGS = -L$(UAL)/lib -lUALCPPInterface -lUALLowLevel
 #LDFLAGS += -L/afs/ipp-garching.mpg.de/itm/switm/blitz/0.10/lib -lblitz
 
-CXXFLAGS=$(shell eval-pkg-config --cflags ual-cpp-gnu)
+CXXFLAGS = -pthread -g -fPIC 
+CXXFLAGS+=$(shell eval-pkg-config --cflags ual-cpp-gnu)
 LDFLAGS=$(shell eval-pkg-config --libs ual-cpp-gnu)
 #CXXFLAGS += -I$(ITMLIBDIR)/itmconstants/include/
 
