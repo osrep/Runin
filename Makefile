@@ -10,7 +10,7 @@ all: librunin.a test/libefieldedit.a
 librunin.a: runin.o cpo_utils.o critical_field.o growth_rate.o
 	ar -rvs $@ $^
 	
-test/libefieldedit.a: test/efieldedit.o init.o cpo_utils.o 
+test/libefieldedit.a: test/efieldedit.o cpo_utils.o 
 	ar -rvs $@ $^
 	
 test/test.o: test/test.cpp
