@@ -35,7 +35,7 @@ int is_growth_rate_over_limit(profile pro, double limit) {
 
 	for (std::vector<cell>::iterator it = pro.begin(); it != pro.end(); ++it) {
 		if (calculate_growth_rate(it->electron_density, it->electron_temperature,
-				it->effective_charge, it->electric_field) > limit)
+				it->effective_charge, abs(it->electric_field)) > abs(limit))
 			return 1;
 	}
 
