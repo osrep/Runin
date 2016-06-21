@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <cmath>
 #include "growth_rate.h"
 
