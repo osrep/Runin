@@ -98,7 +98,35 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 	\f]
 	*/
 
-	return electron_density / tao * pow(me_c2 / (2.0 * electron_temperature), 1.5)
+
+	double thermal_electron_collision_time = calculate_thermal_electron_collision_time(double electron_density, double electron_temperature)
+	return electron_density / thermal_electron_collision_time * pow(me_c2 / (2.0 * electron_temperature), 1.5)
 			* pow(Ed / electric_field, 3.0 * (1.0 + effective_charge) / 16.0)
 			* exp(-Ed / (4.0 * electric_field) - sqrt((1 + effective_charge) * Ed / electric_field));
+}
+
+
+
+double calculate_thermal_electron_collision_time(double electron_density, double electron_temperature){
+
+	//! \a REQ-4: Coulomb logarithm
+	/*!
+	\f[
+		\ln \Lambda = 14.9-0.5 \cdot \log \left(n_e \cdot 10^{-20}\right) + \log \left(t_e \cdot 10^{-3}\right) .
+	\f]
+	*/
+	double coulomb_log = 14.9 - 0.5 * log(electron_density * 1e-20)
+			+ log(electron_temperature * 1e-3);
+			
+	double therm_speed = sqrt(2*electron_temperature*ITM_EV/ITM_ME);		
+
+	return pi_4_e02_me2__e4 * pow(therm_speed,3.0) / (electron_density * coulomb_log);	
+	
+}
+
+double calculate_runaway_collision_time(double electron_density, double electron_temperature){
+
+	double coulomb_log = 14.9 - 0.5 * log(electron_density * 1e-20)
+			+ log(electron_temperature * 1e-3);
+	return pi_4_e02_me2_c3__e4 / (electron_density * coulomb_log);	
 }
