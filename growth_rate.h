@@ -1,7 +1,7 @@
 #ifndef GROWTH_RATE_H_
 #define GROWTH_RATE_H_
 
-#include "constants.h"
+#include "cell.h"
 
 int is_growth_rate_over_limit(profile pro, double limit);
 
