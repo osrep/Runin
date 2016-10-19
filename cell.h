@@ -13,5 +13,6 @@ struct cell {
 	double runaway_density; 
 };
 
+typedef std::vector<cell> profile;
 
 #endif /* CELL_H_ */
