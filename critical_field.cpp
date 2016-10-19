@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <cmath>
 #include "critical_field.h"
+#include "constants.h"
 
 
 //! \f$ e^3 \f$
