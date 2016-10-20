@@ -28,15 +28,4 @@
 //! ERROR CODE
 #define ITM_ILLEGAL_INT	-999999999
 
-
-
-struct cell {
-	double electron_density;
-	double electron_temperature;
-	double effective_charge;
-	double electric_field;
-};
-
-typedef std::vector<cell> profile;
-
 #endif /* CONSTANTS_H_ */

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <cmath>
 #include "growth_rate.h"
+#include "constants.h"
 
 //! 	\f[	m_\mathrm{e} \cdot c^2 \f]
 double me_c2 = ITM_ME * pow(ITM_C, 2);
@@ -35,10 +36,13 @@ Growth rate warning
 */
 
 int is_growth_rate_over_limit(profile pro, double limit) {
-
+	//! maximal normalised minor radius
+	double rho_max = 0.95;
+	
 	for (std::vector<cell>::iterator it = pro.begin(); it != pro.end(); ++it) {
-		if (calculate_growth_rate(it->electron_density, it->electron_temperature,
+		if ( (calculate_growth_rate(it->electron_density, it->electron_temperature,
 				it->effective_charge, abs(it->electric_field)) > abs(limit))
+				&& (it->rho < rho_max) )
 			return 1;
 	}
 
