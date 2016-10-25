@@ -133,10 +133,10 @@ void fire(ItmNs::Itm::coreprofArray &coreprof, ItmNs::Itm::coreimpurArray &corei
 		std::cerr << "ERROR : " << ex.what() << std::endl;
 
 		//! internal error in critical_field
-		critical_field_warning = ITM_ILLEGAL_INT;
+		critical_field_warning = ITM_INVALID_INT;
 		
 		//! internal error in growth_rate
-		growth_rate_warning = ITM_ILLEGAL_INT;
+		growth_rate_warning = ITM_INVALID_INT;
 	}
 }
 	
