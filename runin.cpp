@@ -3,8 +3,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <UALClasses.h>
-
-#include "constants.h"
+#include <vector>
+#include <itm_constants.h>
 #include "cpo_utils.h"
 #include "critical_field.h"
 #include "growth_rate.h"
