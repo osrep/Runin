@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <cmath>
+#include <vector>
+#include <itm_constants.h>
 #include "growth_rate.h"
-#include "constants.h"
 
 //! 	\f[	m_\mathrm{e} \cdot c^2 \f]
 double me_c2 = ITM_ME * pow(ITM_C, 2);

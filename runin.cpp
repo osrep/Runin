@@ -3,8 +3,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <UALClasses.h>
-
-#include "constants.h"
+#include <vector>
+#include <itm_constants.h>
 #include "cpo_utils.h"
 #include "critical_field.h"
 #include "growth_rate.h"
@@ -73,10 +73,10 @@ void fire(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur,
 		std::cerr << "ERROR : " << ex.what() << std::endl;
 		
 		//! internal error in critical_field
-		critical_field_warning = ITM_ILLEGAL_INT;
+		critical_field_warning = ITM_INVALID_INT;
 		
 		//! internal error in growth_rate
-		growth_rate_warning = ITM_ILLEGAL_INT;
+		growth_rate_warning = ITM_INVALID_INT;
 	}
 }
 
@@ -133,10 +133,10 @@ void fire(ItmNs::Itm::coreprofArray &coreprof, ItmNs::Itm::coreimpurArray &corei
 		std::cerr << "ERROR : " << ex.what() << std::endl;
 
 		//! internal error in critical_field
-		critical_field_warning = ITM_ILLEGAL_INT;
+		critical_field_warning = ITM_INVALID_INT;
 		
 		//! internal error in growth_rate
-		growth_rate_warning = ITM_ILLEGAL_INT;
+		growth_rate_warning = ITM_INVALID_INT;
 	}
 }
 	
