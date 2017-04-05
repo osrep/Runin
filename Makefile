@@ -3,7 +3,7 @@ CXX=g++
 CXXFLAGS = -pthread -g -fPIC 
 CXXFLAGS+=$(shell eval-pkg-config --cflags ual-cpp-gnu)
 LDFLAGS=$(shell eval-pkg-config --libs ual-cpp-gnu)
-CXXFLAGS += pkg-config --cflags itmconstants
+CXXFLAGS += $(shell eval-pkg-config --cflags itmconstants)
 
 all: librunin.a 
 
