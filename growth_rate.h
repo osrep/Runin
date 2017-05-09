@@ -12,6 +12,4 @@ double calculate_coulomb_log(double electron_density, double electron_temperatur
 	
 double calculate_thermal_electron_collision_time(double electron_density, double electron_temperature);
 
-double calculate_runaway_collision_time(double electron_density, double electron_temperature);
-
 #endif /* GROWTH_RATE_H_ */

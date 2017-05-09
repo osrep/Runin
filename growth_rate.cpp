@@ -31,9 +31,9 @@ Growth rate warning
 
 
  4.2.3 Functional Requirements
-\return REQ-1: If a radius exists where growth rate exceeds the limit, returns 1.	
+\return REQ-1: If a radius exists where growth rate exceeds the limit, returns 1.
 \return REQ-2: If growth rate is below limit across the whole profile, returns 0.
-\return REQ-3: Growth rate is calculated 
+\return REQ-3: Growth rate is calculated
 */
 
 int is_growth_rate_over_limit(profile pro, double limit) {
@@ -76,22 +76,22 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 	*/
 	electron_temperature *= ITM_QE;
 
-
 	//! \a REQ-3: diffusion time
 	/*! 
 	\f[
-		\tau = 4 \pi \epsilon_0^2 \cdot \frac{m_\mathrm{e}^2 \cdot c^3 }{e^4} \cdot \frac{1}{n_\mathrm{e} \ln \Lambda}		
+		\tau = 4 \pi \epsilon_0^2 \cdot \frac{m_\mathrm{e}^2 \cdot v^3 }{e^4} \cdot \frac{1}{n_\mathrm{e} \ln \Lambda}
 	\f]
 	*/
-	double runaway_collision_time =  calculate_runaway_collision_time(electron_density,electron_temperature);
+
+	double thermal_electron_collision_time = calculate_thermal_electron_collision_time(electron_density, electron_temperature);
 
 	//! \a REQ-3: Dreicer field
 		/*!
 	\f[
-		E_D = \frac{m_\mathrm{e}^2 c^3}{e\tau \cdot T_\mathrm{e}}		
+		E_D = \frac{m_\mathrm{e}^2 v^3}{e\tau \cdot T_\mathrm{e}}
 	\f]
 	*/
-	double Ed = me2_c3__e /  (runaway_collision_time * electron_temperature);
+	double dreicer_field = me2_c3__e /  (thermal_electron_collision_time * electron_temperature);
 
 
 	//! \return \a REQ-3: growth rate
@@ -105,10 +105,10 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 	*/
 
 
-	double thermal_electron_collision_time = calculate_thermal_electron_collision_time(electron_density, electron_temperature);
+
 	return electron_density / thermal_electron_collision_time * pow(me_c2 / (2.0 * electron_temperature), 1.5)
-			* pow(Ed / electric_field, 3.0 * (1.0 + effective_charge) / 16.0)
-			* exp(-Ed / (4.0 * electric_field) - sqrt((1 + effective_charge) * Ed / electric_field));
+			* pow(dreicer_field / electric_field, 3.0 * (1.0 + effective_charge) / 16.0)
+			* exp(-dreicer_field / (4.0 * electric_field) - sqrt((1 + effective_charge) * dreicer_field / electric_field));
 }
 
 
@@ -123,14 +123,8 @@ double calculate_thermal_electron_collision_time(double electron_density, double
 	*/
 	double coulomb_log = calculate_coulomb_log(electron_density, electron_temperature);
 			
-	double therm_speed = sqrt(2*electron_temperature*ITM_EV/ITM_ME);		
+	double therm_speed = sqrt(2*electron_temperature*ITM_EV/ITM_ME);
 
-	return pi_4_e02_me2__e4 * pow(therm_speed,3.0) / (electron_density * coulomb_log);	
+	return pi_4_e02_me2__e4 * pow(therm_speed,3.0) / (electron_density * coulomb_log);
 	
-}
-
-double calculate_runaway_collision_time(double electron_density, double electron_temperature){
-
-	double coulomb_log = calculate_coulomb_log(electron_density, electron_temperature);
-	return pi_4_e02_me2_c3__e4 / (electron_density * coulomb_log);	
 }
