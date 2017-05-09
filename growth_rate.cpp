@@ -85,13 +85,7 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 
 	double thermal_electron_collision_time = calculate_thermal_electron_collision_time(electron_density, electron_temperature);
 
-	//! \a REQ-3: Dreicer field
-		/*!
-	\f[
-		E_D = \frac{m_\mathrm{e}^2 v^3}{e\tau \cdot T_\mathrm{e}}
-	\f]
-	*/
-	double dreicer_field = me2_c3__e /  (thermal_electron_collision_time * electron_temperature);
+	double dreicer_field = calculate_dreicer_field(thermal_electron_collision_time,electron_temperature);
 
 
 	//! \return \a REQ-3: growth rate
@@ -109,6 +103,16 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 	return electron_density / thermal_electron_collision_time * pow(me_c2 / (2.0 * electron_temperature), 1.5)
 			* pow(dreicer_field / electric_field, 3.0 * (1.0 + effective_charge) / 16.0)
 			* exp(-dreicer_field / (4.0 * electric_field) - sqrt((1 + effective_charge) * dreicer_field / electric_field));
+}
+
+double calculate_dreicer_field(double thermal_electron_collision_time, double electron_temperature){
+//! \a REQ-3: Dreicer field
+	/*!
+\f[
+    E_D = \frac{m_\mathrm{e}^2 v^3}{e\tau \cdot T_\mathrm{e}}
+\f]
+*/
+	return me2_c3__e /  (thermal_electron_collision_time * electron_temperature);
 }
 
 

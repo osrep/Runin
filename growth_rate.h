@@ -9,7 +9,8 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 		double effective_charge, double electric_field);
 	
 double calculate_coulomb_log(double electron_density, double electron_temperature);
-	
+double calculate_dreicer_field(double thermal_electron_collision_time, double electron_temperature);
+
 double calculate_thermal_electron_collision_time(double electron_density, double electron_temperature);
 
 #endif /* GROWTH_RATE_H_ */
