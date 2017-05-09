@@ -210,7 +210,7 @@ TEST(GrowthRate, CalculateGrowthRate) {
 }
 
 TEST(GrowthRate, CalculateThermalElectronCollisionTime) {
-	EXPECT_EQ(reference_thermal_electron_collision_time, calculate_thermal_electron_collision_time(reference_ne,reference_te));
+	EXPECT_NEAR(reference_thermal_electron_collision_time, calculate_thermal_electron_collision_time(reference_ne,reference_te), 0.0001);
 }
 
 TEST(GrowthRate, IsGrowthRateOverLimit) {
