@@ -83,7 +83,7 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 		\tau = 4 \pi \epsilon_0^2 \cdot \frac{m_\mathrm{e}^2 \cdot c^3 }{e^4} \cdot \frac{1}{n_\mathrm{e} \ln \Lambda}		
 	\f]
 	*/
-	double tao = pi_4_e02_me2_c3__e4 / (electron_density * coulomb_log);
+	double runaway_collision_time =  calculate_runaway_collision_time(electron_density,electron_temperature);
 
 	//! \a REQ-3: Dreicer field
 		/*!
@@ -91,7 +91,7 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 		E_D = \frac{m_\mathrm{e}^2 c^3}{e\tau \cdot T_\mathrm{e}}		
 	\f]
 	*/
-	double Ed = me2_c3__e / (tao * electron_temperature);
+	double Ed = me2_c3__e /  runaway_collision_time * electron_temperature);
 
 
 	//! \return \a REQ-3: growth rate
@@ -128,10 +128,9 @@ double calculate_thermal_electron_collision_time(double electron_density, double
 	return pi_4_e02_me2__e4 * pow(therm_speed,3.0) / (electron_density * coulomb_log);	
 	
 }
-/*
+
 double calculate_runaway_collision_time(double electron_density, double electron_temperature){
 
 	double coulomb_log = calculate_coulomb_log(electron_density, electron_temperature);
 	return pi_4_e02_me2_c3__e4 / (electron_density * coulomb_log);	
 }
-*/ /*Not used in anywhere*/
