@@ -39,23 +39,36 @@ int is_field_critical(profile pro) {
 	return 0;
 }
 
-double calculate_critical_field(double electron_density, double electron_temperature) {
-	
+double calculate_coulomb_log(double electron_density, double electron_temperature) {
+
 	//! \a REQ-4: Coulomb logarithm
 	/*!
 	\f[
-		\ln \Lambda = 14.9-0.5 \cdot \log \left(n_e \cdot 10^{-20}\right) + \log \left(t_e \cdot 10^{-3}\right) .
+	\ln \Lambda = 14.9-0.5 \cdot \log \left(n_e \cdot 10^{-20}\right) + \log \left(t_e \cdot 10^{-3}\right) .
 	\f]
 	*/
-	double coulomb_log = 14.9 - 0.5 * log(electron_density * 1e-20)
-			+ log(electron_temperature * 1e-3);
+	return 14.9 - 0.5 * log(electron_density * 1e-20)
+		+ log(electron_temperature * 1e-3);
+}
+
+
+double calculate_critical_field(double electron_density, double electron_temperature) {
+
+	//! \a REQ-4: Coulomb logarithm
+	/*!
+	\f[
+	\ln \Lambda = 14.9-0.5 \cdot \log \left(n_e \cdot 10^{-20}\right) + \log \left(t_e \cdot 10^{-3}\right) .
+	\f]
+	*/
+	double coulomb_log = calculate_coulomb_log(electron_density, electron_temperature);
 
 
 	//! \return \a REQ-3: Critical field
 	/*!
 	\f[
-		E_\mathrm{c} = \frac{n_\mathrm{e} e^3 \ln \Lambda}{4\pi\epsilon_0^2 m_\mathrm{e} c^2}
+	E_\mathrm{c} = \frac{n_\mathrm{e} e^3 \ln \Lambda}{4\pi\epsilon_0^2 m_\mathrm{e} c^2}
 	\f]
 	*/
 	return electron_density * e3 * coulomb_log / pi_e02_me_4_c2;
+	//return calculate_dreicer_field(electron_density,electron_temperature)
 }
