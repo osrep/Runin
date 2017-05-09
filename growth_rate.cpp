@@ -91,7 +91,7 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 		E_D = \frac{m_\mathrm{e}^2 c^3}{e\tau \cdot T_\mathrm{e}}		
 	\f]
 	*/
-	double Ed = me2_c3__e /  runaway_collision_time * electron_temperature);
+	double Ed = me2_c3__e /  (runaway_collision_time * electron_temperature);
 
 
 	//! \return \a REQ-3: growth rate
