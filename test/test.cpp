@@ -176,7 +176,7 @@ TEST(CoulombLog, CalculateCoulombLog) {
 }
 
 TEST(CriticalField, CalculateCriticalField) {
-	EXPECT_NEAR(0.93588, calculate_critical_field(1e21, 1e5), 0.0001);
+	EXPECT_NEAR(0.836252, calculate_critical_field(1e21, 1e5), 0.0001);
 }
 
 TEST(CriticalField, IsFieldCritical) {
