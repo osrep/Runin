@@ -195,14 +195,14 @@ TEST(CriticalField, IsFieldCritical) {
 
 	cell2.electron_density = 0.9*reference_ne;
 	cell2.electron_temperature = reference_te;
-	cell2.electric_field = reference_critical_field/2;
+	cell2.electric_field = reference_critical_field;
 
 	profile pro;
 	pro.push_back(cell1);
 	EXPECT_EQ(1, is_field_critical(pro));
 
 	pro.push_back(cell2);
-	EXPECT_EQ(0, is_field_critical(pro));
+	EXPECT_EQ(1, is_field_critical(pro));
 }
 
 TEST(GrowthRate, CalculateGrowthRate) {
