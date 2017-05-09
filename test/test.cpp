@@ -171,8 +171,8 @@ TEST(CpoToProfil, EffectiveCharge) {
 	EXPECT_NEAR(131.24, pro[3].effective_charge, 0.01);
 }
 
-TEST(CoulombLog, calculate_coulomb_log) {
-	EXPECT_NEAR(17, calculate_coulomb_log(1e21, 1e5), 0.0001);
+TEST(CoulombLog, CalculateCoulombLog) {
+	EXPECT_NEAR(16.4, calculate_coulomb_log(1e21, 1e5), 0.0001);
 }
 
 TEST(CriticalField, CalculateCriticalField) {
