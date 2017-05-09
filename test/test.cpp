@@ -3,6 +3,10 @@
 #include "../critical_field.h"
 #include "../growth_rate.h"
 
+const double reference_te = 1e5;
+const double reference_ne = 1e21;
+const double reference_critical_field = 0.83625;
+
 TEST(Equal, Tolerance) {
 	EXPECT_TRUE(equal(1.0, 1.1, 0.1));
 	EXPECT_TRUE(equal(-10.0, -11.0, 0.1));
@@ -172,23 +176,23 @@ TEST(CpoToProfil, EffectiveCharge) {
 }
 
 TEST(CoulombLog, CalculateCoulombLog) {
-	EXPECT_NEAR(16.4, calculate_coulomb_log(1e21, 1e5), 0.0001);
+	EXPECT_NEAR(16.4, calculate_coulomb_log(reference_ne, reference_te), 0.0001);
 }
 
 TEST(CriticalField, CalculateCriticalField) {
-	EXPECT_NEAR(0.836252, calculate_critical_field(1e21, 1e5), 0.0001);
+	EXPECT_NEAR(reference_critical_field, calculate_critical_field(reference_ne, reference_te), 0.0001);
 }
 
 TEST(CriticalField, IsFieldCritical) {
 	cell cell1, cell2;
 
-	cell1.electron_density = 1.1e21;
-	cell1.electron_temperature = 1e5;
-	cell1.electric_field = 0.93588;
+	cell1.electron_density = 1.reference_ne;
+	cell1.electron_temperature = reference_te;
+	cell1.electric_field = reference_critical_field;
 
 	cell2.electron_density = 0.9e21;
-	cell2.electron_temperature = 1e5;
-	cell2.electric_field = 0.93588;
+	cell2.electron_temperature = reference_te;
+	cell2.electric_field = reference_critical_field;
 
 	profile pro;
 	pro.push_back(cell1);
@@ -199,19 +203,19 @@ TEST(CriticalField, IsFieldCritical) {
 }
 
 TEST(GrowthRate, CalculateGrowthRate) {
-	EXPECT_NEAR(6.73973e22, calculate_growth_rate(1e21, 1e5, 1.5, 1.2), 1e18);
+	EXPECT_NEAR(6.73973e22, calculate_growth_rate(reference_ne, reference_te, 1.5, 1.2), 1e18);
 }
 
 TEST(GrowthRate, IsGrowthRateOverLimit) {
 	cell cell1, cell2;
 
-	cell1.electron_density = 1.1e21;
-	cell1.electron_temperature = 1e5;
+	cell1.electron_density = 1.reference_ne;
+	cell1.electron_temperature = reference_te;
 	cell1.effective_charge = 1.5;
 	cell1.electric_field = 1.2;
 
 	cell2.electron_density = 0.9e21;
-	cell2.electron_temperature = 1e5;
+	cell2.electron_temperature = reference_te;
 	cell1.effective_charge = 1.5;
 	cell2.electric_field = 1.2;
 
