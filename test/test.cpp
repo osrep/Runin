@@ -6,7 +6,8 @@
 const double reference_te = 1e5;
 const double reference_ne = 1e21;
 const double reference_critical_field = 0.83625;
-const double reference_growth_rate = ;
+const double reference_growth_rate = 1.0; 								/*Not final, only temporary constant!!!!*/
+const double reference_thermal_electron_collision_time = 2.0383e-3; 	/*Not final, only temporary constant!!!!*/
 
 TEST(Equal, Tolerance) {
 	EXPECT_TRUE(equal(1.0, 1.1, 0.1));
@@ -205,6 +206,10 @@ TEST(CriticalField, IsFieldCritical) {
 
 TEST(GrowthRate, CalculateGrowthRate) {
 	EXPECT_NEAR(reference_growth_rate, calculate_growth_rate(reference_ne, reference_te, 1.5, 1.2), 1e18);
+}
+
+TEST(GrowthRate, CalculateThermalElectronCollisionTime) {
+	EXPECT_EQ(reference_thermal_electron_collision_time), calculate_thermal_electron_collision_time(reference_ne,reference_te));
 }
 
 TEST(GrowthRate, IsGrowthRateOverLimit) {
