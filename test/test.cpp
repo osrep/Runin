@@ -199,7 +199,7 @@ TEST(CriticalField, IsFieldCritical) {
 
 	profile pro;
 	pro.push_back(cell1);
-	EXPECT_EQ(0, is_field_critical(pro));
+	EXPECT_EQ(1, is_field_critical(pro));
 
 	pro.push_back(cell2);
 	EXPECT_EQ(1, is_field_critical(pro));
