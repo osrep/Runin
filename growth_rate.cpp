@@ -76,7 +76,7 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 		
 	\f]
 	*/
-	
+	double me_c2 = ITM_ME * pow(ITM_C, 2);
 	return electron_density / thermal_electron_collision_time * pow(me_c2 / (2.0 * electron_temperature), 1.5)
 			* pow(dreicer_field / electric_field, 3.0 * (1.0 + effective_charge) / 16.0)
 			* exp(-dreicer_field / (4.0 * electric_field) - sqrt((1 + effective_charge) * dreicer_field / electric_field));
