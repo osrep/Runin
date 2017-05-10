@@ -9,7 +9,9 @@
 
 Growth rate warning
 
-\details The module outputs an integer value (0 or 1) which indicates, whether the growth rate of runaway electron generation is above the limit value given in Demultiplexer workflow, thus runaway generation is to be expected. If the growth rate exceeds the limit value this warning raises.
+\details The module outputs an integer value (0 or 1) which indicates, whether the growth rate of runaway electron
+ generation is above the limit value given in Demultiplexer workflow, thus runaway generation is to be expected.
+ If the growth rate exceeds the limit value this warning raises.
 
 \param pro profile
 \param limit double
@@ -79,5 +81,5 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 	double me_c2 = ITM_ME * pow(ITM_C, 2);
 	return electron_density / thermal_electron_collision_time * pow(me_c2 / (2.0 * electron_temperature*ITM_EV), 1.5)
 			* pow(dreicer_field / electric_field, 3.0 * (1.0 + effective_charge) / 16.0)
-			* exp(-dreicer_field / (4.0 * electric_field) - sqrt((1 + effective_charge) * dreicer_field / electric_field));
+			* exp(-dreicer_field / (4.0 * electric_field) - sqrt((1.0 + effective_charge) * dreicer_field / electric_field));
 }
