@@ -5,7 +5,7 @@
 
 const double reference_te = 1e5;
 const double reference_ne = 1e21;
-const double reference_dreicer_field = 2.7962e-18;
+const double reference_dreicer_field = 2.7961e-18;
 const double reference_critical_field = 0.83625;
 const double reference_growth_rate_1 = 2.28e18;
 const double reference_growth_rate_2 = 5.06017e17;
@@ -212,7 +212,7 @@ TEST(CriticalField, IsFieldCritical) {
 }
 
 TEST(GrowthRate, CalculateDreicerField) {
-EXPECT_NEAR(reference_dreicer_field, calculate_dreicer_field(reference_thermal_electron_collision_time, reference_te), 1e-22);
+EXPECT_NEAR(reference_dreicer_field, calculate_dreicer_field(reference_thermal_electron_collision_time, reference_te), 3e-22);
 }
 
 
