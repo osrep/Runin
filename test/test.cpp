@@ -212,7 +212,7 @@ TEST(CriticalField, IsFieldCritical) {
 }
 
 TEST(GrowthRate, CalculateDreicerField) {
-EXPECT_NEAR(reference_dreicer_field, calculate_dreicer_field(reference_thermal_electron_collision_time, reference_te) 1e-22);
+EXPECT_NEAR(reference_dreicer_field, calculate_dreicer_field(reference_thermal_electron_collision_time, reference_te), 1e-22);
 }
 
 
