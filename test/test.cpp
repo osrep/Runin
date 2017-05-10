@@ -13,7 +13,7 @@ const double reference_thermal_electron_collision_time = 4.9909e-4;
 const double reference_runaway_electron_collision_time = 2.0383e-3;
 const double reference_Zeff_1 = 1.0;
 const double reference_Zeff_2 = 1.2;
-const double reference_electric_field_1 = 1.0;
+const double reference_electric_field_1 = 1.2;
 const double reference_electric_field_2 = 1.2;
 
 TEST(Equal, Tolerance) {
