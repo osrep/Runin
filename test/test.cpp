@@ -5,7 +5,7 @@
 
 const double reference_te = 1e5;
 const double reference_ne = 1e21;
-const double reference_dreicer_field = 6.8465e-19;
+const double reference_dreicer_field = 2.7962e-18;
 const double reference_critical_field = 0.83625;
 const double reference_growth_rate_1 = 1.0;
 const double reference_growth_rate = 1.0;
