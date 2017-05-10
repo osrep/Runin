@@ -232,15 +232,15 @@ EXPECT_NEAR(reference_growth_rate_2, calculate_growth_rate(reference_ne, referen
 TEST(GrowthRate, IsGrowthRateOverLimit) {
 	cell cell1, cell2;
 
-	cell1.electron_density = 1.1*reference_ne;
+	cell1.electron_density = 0.9*reference_ne;
 	cell1.electron_temperature = reference_te;
-	cell1.effective_charge = 1.5;
-	cell1.electric_field = 1.2;
+	cell1.effective_charge = reference_Zeff_1;
+	cell1.electric_field = reference_electric_field_1;
 
-	cell2.electron_density = 0.9*reference_ne;
+	cell2.electron_density = 1.1*reference_ne;
 	cell2.electron_temperature = reference_te;
-	cell1.effective_charge = 1.5;
-	cell2.electric_field = 1.2;
+	cell1.effective_charge = reference_Zeff_1;
+	cell2.electric_field = reference_electric_field_1;
 
 	profile pro;
 	pro.push_back(cell1);
