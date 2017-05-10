@@ -243,8 +243,8 @@ TEST(GrowthRate, IsGrowthRateOverLimit) {
 
 	profile pro;
 	pro.push_back(cell1);
-	EXPECT_EQ(0, is_growth_rate_over_limit(pro, reference_growth_rate));
+	EXPECT_EQ(0, is_growth_rate_over_limit(pro, reference_growth_rate_1));
 
 	pro.push_back(cell2);
-	EXPECT_EQ(1, is_growth_rate_over_limit(pro, reference_growth_rate));
+	EXPECT_EQ(1, is_growth_rate_over_limit(pro, reference_growth_rate_1));
 }
