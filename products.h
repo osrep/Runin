@@ -24,5 +24,4 @@ double pi_4_e02_me2__e4  = ITM_PI * 4.0 * pow(ITM_EPS0, 2) * ITM_ME *ITM_ME  / p
 //! \f$ 4\pi\epsilon_0^2 m_\mathrm{e} c^2 \f$
 double pi_e02_me_4_c2 = ITM_PI * pow(ITM_EPS0, 2) * ITM_ME * 4.0 * pow(ITM_C, 2);
 
-
 #endif /* PRODUCTS_H_ */

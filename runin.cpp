@@ -43,12 +43,7 @@ Analytical formula used to determine the critical electric field is based on the
 [2] H. Smith, P. Helander, L.-G. Eriksson, D. Anderson, M. Lisak, and F. Andersson, Runaway electrons and the evolution of the plasma current in tokamak disruptions,  Physics of Plasmas 13, 102502 (2006)
 
 */
-
-
-
-
-
-/*! 
+/*!
 
 main function
 
@@ -139,4 +134,3 @@ void fire(ItmNs::Itm::coreprofArray &coreprof, ItmNs::Itm::coreimpurArray &corei
 		growth_rate_warning = ITM_INVALID_INT;
 	}
 }
-	

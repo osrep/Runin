@@ -6,7 +6,6 @@
 #include "critical_field.h"
 
 /*!
-
 Growth rate warning
 
 \details The module outputs an integer value (0 or 1) which indicates, whether the growth rate of runaway electron
@@ -16,7 +15,6 @@ Growth rate warning
 \param pro profile
 \param limit double
 
-
  4.2.3 Functional Requirements
 \return REQ-1: If a radius exists where growth rate exceeds the limit, returns 1.
 \return REQ-2: If growth rate is below limit across the whole profile, returns 0.
@@ -24,6 +22,7 @@ Growth rate warning
 */
 
 int is_growth_rate_over_limit(profile pro, double limit) {
+
 	//! maximal normalised minor radius
 	double rho_max = 0.95;
 	
@@ -33,7 +32,6 @@ int is_growth_rate_over_limit(profile pro, double limit) {
 				&& (it->rho < rho_max) )
 			return 1;
 	}
-
 	return 0;
 }
 
@@ -46,17 +44,10 @@ int is_growth_rate_over_limit(profile pro, double limit) {
 	
 */
 
-
 double calculate_growth_rate(double electron_density, double electron_temperature,
-		double effective_charge, double electric_field) {
+							 double effective_charge, double electric_field) {
 
 	double coulomb_log = calculate_coulomb_log(electron_density, electron_temperature);
-
-	/*! electron temperature
-	\f[ T_\mathrm{e} \mathrm{[kJ]} = t_\mathrm{e} \mathrm{[keV]} \cdot e\f]
-	*/
-	
-	//electron_temperature *= ITM_QE;
 
 	//! \a REQ-3: diffusion time
 	/*! 
@@ -78,6 +69,7 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 		
 	\f]
 	*/
+
 	double me_c2 = ITM_ME * pow(ITM_C, 2);
 	return electron_density / thermal_electron_collision_time * pow(me_c2 / (2.0 * electron_temperature*ITM_EV), 1.5)
 			* pow(dreicer_field / electric_field, 3.0 * (1.0 + effective_charge) / 16.0)

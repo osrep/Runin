@@ -2,7 +2,8 @@
 #define CELL_H_
 
 //! cell structure	
-#include <vector>	
+#include <vector>
+
 struct cell {
 	double rho;
 	double electron_density;
