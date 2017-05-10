@@ -39,19 +39,6 @@ int is_field_critical(profile pro) {
 	return 0;
 }
 
-double calculate_coulomb_log(double electron_density, double electron_temperature) {
-
-	//! \a REQ-4: Coulomb logarithm
-	/*!
-	\f[
-	\ln \Lambda = 14.9-0.5 \cdot \log \left(n_e \cdot 10^{-20}\right) + \log \left(t_e \cdot 10^{-3}\right) .
-	\f]
-	*/
-	return 14.9 - 0.5 * log10(electron_density * 1e-20)
-		+ log10(electron_temperature * 1e-3);
-}
-
-
 double calculate_critical_field(double electron_density, double electron_temperature) {
 
 	//! \a REQ-4: Coulomb logarithm
@@ -71,4 +58,35 @@ double calculate_critical_field(double electron_density, double electron_tempera
 	*/
 	return electron_density * e3 * coulomb_log / pi_e02_me_4_c2;
 	//return calculate_dreicer_field(electron_density,electron_temperature)
+}
+
+double calculate_coulomb_log(double electron_density, double electron_temperature) {
+
+	//! \a REQ-4: Coulomb logarithm
+	/*!
+	\f[
+	\ln \Lambda = 14.9-0.5 \cdot \log \left(n_e \cdot 10^{-20}\right) + \log \left(t_e \cdot 10^{-3}\right) .
+	\f]
+	*/
+	return 14.9 - 0.5 * log10(electron_density * 1e-20)
+		+ log10(electron_temperature * 1e-3);
+}
+
+double calculate_dreicer_field(double thermal_electron_collision_time, double electron_temperature){
+//! \a REQ-3: Dreicer field
+	/*!
+\f[
+    E_D = \frac{m_\mathrm{e}^2 v^3}{e\tau \cdot T_\mathrm{e}}
+\f]
+*/
+	return me2_c3__e /  (thermal_electron_collision_time * electron_temperature);
+}
+
+double calculate_thermal_electron_collision_time(double electron_density, double electron_temperature){
+
+	double coulomb_log = calculate_coulomb_log(electron_density, electron_temperature);
+			
+	double therm_speed = sqrt(2*electron_temperature*ITM_EV/ITM_ME);
+
+	return pi_4_e02_me2__e4 * pow(therm_speed,3.0) / (electron_density * coulomb_log);	
 }
