@@ -7,7 +7,7 @@ CXXFLAGS += $(shell eval-pkg-config --cflags itmconstants)
 
 all: librunin.a 
 
-librunin.a: runin.o cpo_utils.o critical_field.o growth_rate.o
+librunin.a: runin.o cpo_utils.o critical_field.o growth_rate.o products.o
 	ar -rvs $@ $^
 	
 test/test.o: test/test.cpp
