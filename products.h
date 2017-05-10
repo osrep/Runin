@@ -2,8 +2,6 @@
 #define PRODUCTS_H_
 
 #include <cmath>
-//#include "critical_field.h"
-#include "constants.h"
 
 //! 	\f[	m_\mathrm{e} \cdot c^2 \f]
 double me_c2 = ITM_ME * pow(ITM_C, 2);
