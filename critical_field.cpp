@@ -4,12 +4,6 @@
 #include "critical_field.h"
 
 
-//! \f$ e^3 \f$
-double e3 = pow(ITM_QE, 3);
-
-//! \f$ 4\pi\epsilon_0^2 m_\mathrm{e} c^2 \f$
-double pi_e02_me_4_c2 = ITM_PI * pow(ITM_EPS0, 2) * ITM_ME * 4.0 * pow(ITM_C, 2);
-
 
 
 /*! Critical field warning
