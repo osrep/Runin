@@ -8,7 +8,7 @@ const double reference_ne = 1e21;
 const double reference_dreicer_field = 17.452;
 const double reference_critical_field = 0.83625;
 const double reference_growth_rate_1 = 8.27939e20;
-const double reference_growth_rate_2 = 5.06017e17;
+const double reference_growth_rate_2 = 2.27479e21;
 const double reference_thermal_electron_collision_time = 4.9909e-4;
 const double reference_runaway_electron_collision_time = 2.0383e-3;
 const double reference_Zeff_1 = 1.0;
@@ -239,13 +239,13 @@ TEST(GrowthRate, IsGrowthRateOverLimit) {
 
 	cell2.electron_density = 1.1*reference_ne;
 	cell2.electron_temperature = reference_te;
-	cell2.effective_charge = reference_Zeff_2;
-	cell2.electric_field = reference_electric_field_2;
+	cell2.effective_charge = reference_Zeff_1;
+	cell2.electric_field = reference_electric_field_1;
 
 	profile pro;
 	pro.push_back(cell1);
 	EXPECT_EQ(0, is_growth_rate_over_limit(pro, reference_growth_rate_1));
 
 	pro.push_back(cell2);
-	EXPECT_EQ(1, is_growth_rate_over_limit(pro, reference_growth_rate_2));
+	EXPECT_EQ(1, is_growth_rate_over_limit(pro, reference_growth_rate_1));
 }
