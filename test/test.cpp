@@ -239,13 +239,13 @@ TEST(GrowthRate, IsGrowthRateOverLimit) {
 
 	cell2.electron_density = 1.1*reference_ne;
 	cell2.electron_temperature = reference_te;
-	cell2.effective_charge = reference_Zeff_1;
-	cell2.electric_field = reference_electric_field_1;
+	cell2.effective_charge = reference_Zeff_2;
+	cell2.electric_field = reference_electric_field_2;
 
 	profile pro;
 	pro.push_back(cell1);
 	EXPECT_EQ(0, is_growth_rate_over_limit(pro, reference_growth_rate_1));
 
 	pro.push_back(cell2);
-	EXPECT_EQ(1, is_growth_rate_over_limit(pro, reference_growth_rate_1));
+	EXPECT_EQ(1, is_growth_rate_over_limit(pro, reference_growth_rate_2));
 }
