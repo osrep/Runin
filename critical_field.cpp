@@ -73,6 +73,7 @@ double calculate_dreicer_field(double thermal_electron_collision_time, double el
     E_D = \frac{m_\mathrm{e}^2 v^3}{e\tau \cdot T_\mathrm{e}}
 \f]
 */
+printf("electron temperature: %lf\n",electron_temperature);
 	return me2_c3__e /  (thermal_electron_collision_time * electron_temperature * ITM_EV);
 }
 
