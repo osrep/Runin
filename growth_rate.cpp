@@ -3,6 +3,7 @@
 #include <vector>
 #include <itm_constants.h>
 #include "growth_rate.h"
+#include "products.h"
 
 /*!
 
