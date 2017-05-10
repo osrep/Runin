@@ -222,7 +222,7 @@ EXPECT_NEAR(reference_thermal_electron_collision_time, calculate_thermal_electro
 
 TEST(GrowthRate, CalculateGrowthRate_1) {
 	EXPECT_NEAR(reference_growth_rate_1, calculate_growth_rate(reference_ne, reference_te, reference_Zeff_1, reference_electric_field_1), 1e18);
-	printf("growth rate: %lf \n",calculate_growth_rate(reference_ne, reference_te, reference_Zeff_1, reference_electric_field_1) );
+	/*printf("growth rate: %lf \n",calculate_growth_rate(reference_ne, reference_te, reference_Zeff_1, reference_electric_field_1) );*/
 }
 
 TEST(GrowthRate, CalculateGrowthRate_2) {
