@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <itm_constants.h>
 #include "critical_field.h"
+#include "products.h"
 
 
 //! \f$ e^3 \f$
