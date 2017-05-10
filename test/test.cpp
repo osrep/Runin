@@ -195,11 +195,11 @@ TEST(CriticalField, CalculateCriticalField) {
 TEST(CriticalField, IsFieldCritical) {
 	cell cell1, cell2;
 
-	cell1.electron_density = 1.1*reference_ne;
+	cell1.electron_density = 0.9*reference_ne;
 	cell1.electron_temperature = reference_te;
 	cell1.electric_field = reference_critical_field;
 
-	cell2.electron_density = 0.9*reference_ne;
+	cell2.electron_density = 1.1*reference_ne;
 	cell2.electron_temperature = reference_te;
 	cell2.electric_field = reference_critical_field;
 
