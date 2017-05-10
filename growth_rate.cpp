@@ -54,7 +54,7 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 	\f[ T_\mathrm{e} \mathrm{[kJ]} = t_\mathrm{e} \mathrm{[keV]} \cdot e\f]
 	*/
 	
-	electron_temperature *= ITM_QE;
+	//electron_temperature *= ITM_QE;
 
 	//! \a REQ-3: diffusion time
 	/*! 
@@ -72,12 +72,12 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 	\f[
 		\dot{n}_r^I= \frac{n_\mathrm{e}}{\tau} \cdot \left(\frac{m_\mathrm{e} c^2}{2 T_\mathrm{e}} \right)^{3/2}\cdot
 		\left( \frac{E_D}{E_\parallel}\right)^{3 \left(1+Z_\mathrm{eff}\right) / 16} \cdot 
-		\exp \left( -\frac{E_D}{4E_\parallel} - \sqrt{\frac{1+Z_\mathrm{eff} \cdot E_D}{E_\parallel}}\right)
+		\exp \left( -\frac{E_D}{4E_\parallel} - \sqrt{(\frac{1+Z_\mathrm{eff}) \cdot E_D}{E_\parallel}}\right)
 		
 	\f]
 	*/
 	double me_c2 = ITM_ME * pow(ITM_C, 2);
-	return electron_density / thermal_electron_collision_time * pow(me_c2 / (2.0 * electron_temperature), 1.5)
+	return electron_density / thermal_electron_collision_time * pow(me_c2 / (2.0 * electron_temperature*ITM_QE), 1.5)
 			* pow(dreicer_field / electric_field, 3.0 * (1.0 + effective_charge) / 16.0)
 			* exp(-dreicer_field / (4.0 * electric_field) - sqrt((1 + effective_charge) * dreicer_field / electric_field));
 }

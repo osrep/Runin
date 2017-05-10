@@ -73,14 +73,14 @@ double calculate_dreicer_field(double thermal_electron_collision_time, double el
     E_D = \frac{m_\mathrm{e}^2 v^3}{e\tau \cdot T_\mathrm{e}}
 \f]
 */
-	return me2_c3__e /  (thermal_electron_collision_time * electron_temperature);
+	return me2_c3__e /  (thermal_electron_collision_time * electron_temperature*ITM_QE);
 }
 
 double calculate_thermal_electron_collision_time(double electron_density, double electron_temperature){
 
 	double coulomb_log = calculate_coulomb_log(electron_density, electron_temperature);
 			
-	double therm_speed = sqrt(2*electron_temperature*ITM_EV/ITM_ME);
+	double therm_speed = sqrt(2*electron_temperature*ITM_QE*ITM_EV/ITM_ME);
 
 	return pi_4_e02_me2__e4 * pow(therm_speed,3.0) / (electron_density * coulomb_log);	
 }
