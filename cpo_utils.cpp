@@ -15,8 +15,6 @@ bool equal(double a, double b, double tolerance) {
 	return abs(a - b) * 2.0 <= (abs(a) + abs(b)) * tolerance;
 }
 
-
-
 //! Binary search 
 
 int binary_search(const Array<double, 1> &array, int first, int last, double search_key) {
@@ -40,7 +38,6 @@ int binary_search(const Array<double, 1> &array, double search_key) {
 	return binary_search(array, 0, array.rows() - 2, search_key);
 }
 
-
 /*!
 linear interpolation
 
@@ -49,6 +46,7 @@ linear interpolation
 \f]
 
 */
+
 double interpolate(const Array<double, 1> &x, const Array<double, 1> &y, double xa) {
 
 	int rows = x.rows();
@@ -66,8 +64,6 @@ double interpolate(const Array<double, 1> &x, const Array<double, 1> &y, double 
 
 	return y(index) + (y(index + 1) - y(index)) / (x(index + 1) - x(index)) * (xa - x(index));
 }
-
-
 
 profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::coreimpur &coreimpur,
 		const ItmNs::Itm::equilibrium &equilibrium) {
@@ -107,8 +103,6 @@ profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::c
 			celll.effective_charge += coreprof.ni.value(rho, ion)
 					* coreprof.compositions.ions(ion).zion * coreprof.compositions.ions(ion).zion;
 		}
-
-
 		//! total sum of electric charge in \a rho cell for all impurity population
 		for (int impurity = 0; impurity < coreimpur.impurity.rows(); impurity++) {
 
@@ -130,8 +124,6 @@ profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::c
 				celll.effective_charge += nz * z * z;
 			}
 		}
-		
-		// rho_tor: toroidal flux coordinate
 
 		// Assume sum of n_i * Z_i equals electron density because of quasi-neutrality
 		celll.effective_charge /= celll.electron_density;
