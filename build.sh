@@ -7,4 +7,4 @@ make
 
 # with test files
 make test
-test/test.bin
+./test.bin
