@@ -3,7 +3,6 @@
 #include <itm_constants.h>
 #include "critical_field.h"
 #include "products.h"
-#include <stdio.h> //temp!!!
 
 /*! Critical field warning
 
