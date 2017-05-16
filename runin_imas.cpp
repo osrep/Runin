@@ -100,7 +100,7 @@ void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium
 			//! critical field: \sa is_field_critical
 			if (critical_field_warning == 0) {
 				critical_field_warning = is_field_critical(
-						cpo_to_profile_imas(core_profiles, equilibrium, timeindex));
+						ids_to_profile(core_profiles, equilibrium, timeindex));
 
 				if (critical_field_warning != 0)
 					critical_field_time = core_profiles[slice].time;
@@ -109,7 +109,7 @@ void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium
 			//! growth rate: \sa is_growth_rate_over_limit
 			if (growth_rate_warning == 0) {
 				growth_rate_warning = is_growth_rate_over_limit(
-						cpo_to_profile_imascore_profiles, equilibrium, timeindex));
+						ids_to_profile(core_profiles, equilibrium, timeindex));
 						growth_rate_limit);
 
 				if (growth_rate_warning != 0)

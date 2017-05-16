@@ -136,7 +136,8 @@ profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::c
 
 
 // IMAS utilities
-profile cpo_to_profile_imas(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex){
+// https://portal.iter.org/departments/POP/CM/IMDesign/Data%20Model/CI/imas-3.7.3/html_documentation.html
+profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex){
 
 	profile pro;
 
@@ -153,50 +154,22 @@ profile cpo_to_profile_imas(const IdsNs::IDS::core_profiles &core_profiles, cons
 				"Number of values is different in core_profiles.ne and core_profiles.profiles1d.eparallel.");
 
     //! read data in every $\rho$ 
-
 	for (int rho = 0; rho < cells; rho++) {
 		cell celll;
-		celll.electron_density = .profiles_1d[timeindex].electrons.density.value(rho);
-		celll.electron_temperature = .profiles_1d[timeindex].electrons.temperature.value(rho);
+		celll.electron_density = core_profiles.profiles_1d[timeindex].electrons.density.value(rho);
+		celll.electron_temperature = core_profiles.profiles_1d[timeindex].electrons.temperature.value(rho);
 		
 		/*! local electric field
 			\f[ E = \frac{E_\parallel(\rho) B_0}{B_\mathrm{av}(\rho)} \f]
 			where B_\mathrm{av} is known on discreate \f$R \f$ major radius and interpolated at $\rho$ normalised minor radius
 		*/
-		celll.electric_field = core_profiles.profiles1d.eparallel.value(rho) * core_profiles.toroid_field.b0
-				/ interpolate(equilibrium.profiles_1d.rho_tor, equilibrium.profiles_1d.b_av,
-						core_profiles.profiles_1d[timeindex].grid.rho_tor(rho));
-
-		//! total sum of electric charge in \a rho cell for all ion population
-		celll.effective_charge = 0.0;
-		for (int ion = 0; ion < core_profiles.compositions.ions.rows(); ion++) {
-			celll.effective_charge += core_profiles.ni.value(rho, ion)
-					* core_profiles.compositions.ions(ion).zion * core_profiles.compositions.ions(ion).zion;
-		}
-		//! total sum of electric charge in \a rho cell for all impurity population
-		for (int impurity = 0; impurity < coreimpur.impurity.rows(); impurity++) {
-
-			for (int ionization_degree = 0;
-					ionization_degree < coreimpur.impurity(impurity).z.extent(1);
-					ionization_degree++) {
-
-				Array<double, 1> density_profile = coreimpur.impurity(impurity).nz(Range::all(),
-						ionization_degree);
-				Array<double, 1> charge_profile = coreimpur.impurity(impurity).z(Range::all(),
-						ionization_degree);
-
-				//! number of impurities by species
-				double nz = interpolate(coreimpur.rho_tor, density_profile, core_profiles.rho_tor(rho));
 				
-				//! charge of impurity
-				double z = interpolate(coreimpur.rho_tor, charge_profile, core_profiles.rho_tor(rho));
-
-				celll.effective_charge += nz * z * z;
-			}
-		}
-
-		// Assume sum of n_i * Z_i equals electron density because of quasi-neutrality
-		celll.effective_charge /= celll.electron_density;
+		celll.electric_field = core_profiles.profiles_1d[timeindex].e_field_parallel.value(rho) * core_profiles.profiles_1d[timeindex].vacuum_toroidal_field.b0
+				/ interpolate(equilibrium.profiles_1d.rho_tor, equilibrium.profiles_1d.b_average,
+						core_profiles.profiles_1d[timeindex].grid.rho_tor(rho));
+						
+		//! total sum of electric charge in \a rho cell
+		celll.effective_charge = core_profiles.profiles_1d[timeindex].zeff;
 
 		pro.push_back(celll);
 	}

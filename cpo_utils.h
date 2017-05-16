@@ -13,6 +13,6 @@ double interpolate(const Array<double, 1> &x, const Array<double, 1> &y, double 
 profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::coreimpur &coreimpur,
 		const ItmNs::Itm::equilibrium &equilibrium);		
 		
-profile cpo_to_profile_imas(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex);
+profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex);
 
 #endif /* CPO_UTILS_H_ */
