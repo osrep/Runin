@@ -78,6 +78,7 @@ void fire(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equ
 main function
 
 arrays by time*/
+/*
 void fire(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equilibrium,
         double &growth_rate_limit,	int &critical_field_warning, int &growth_rate_warning,
         double &critical_field_time, double &growth_rate_time) {
@@ -127,4 +128,4 @@ void fire(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equ
 		//! internal error in growth_rate
 		growth_rate_warning = ITM_INVALID_INT;
 	}
-}
+}*/
