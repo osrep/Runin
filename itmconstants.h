@@ -26,7 +26,7 @@
 #define ITM_EPS0	1.0 / (ITM_MU0 * ITM_C * ITM_C)
 
 //! ERROR CODE
-#define ITM_ILLEGAL_INT	-999999999
+#define ITM_INVALID_INT	-999999999
 
 
 
