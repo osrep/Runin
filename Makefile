@@ -5,9 +5,11 @@ CXXFLAGS = -pthread -g -fPIC
 ifeq ($(ITM_ENVIRONMENT_LOADED), yes)
     CXXFLAGS += $(shell eval-pkg-config --cflags ual-cpp-gnu --cflags itmconstants)
     LDFLAGS = $(shell eval-pkg-config --libs ual-cpp-gnu)
+    @echo "Compiler set to ITM \n"
 else
     CXXFLAGS += $(shell pkg-config --cflags imas-cpp)
     LDFLAGS = $(shell pkg-config --libs imas-cpp)
+    @echo "Compiler set to IMAS \n"
 endif
 
 all:  librunin.a
