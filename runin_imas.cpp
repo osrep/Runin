@@ -109,7 +109,7 @@ void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium
 			//! growth rate: \sa is_growth_rate_over_limit
 			if (growth_rate_warning == 0) {
 				growth_rate_warning = is_growth_rate_over_limit(
-						ids_to_profile(core_profiles, equilibrium, timeindex));
+						ids_to_profile(core_profiles, equilibrium, timeindex),
 						growth_rate_limit);
 
 				if (growth_rate_warning != 0)
