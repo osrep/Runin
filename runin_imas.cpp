@@ -86,8 +86,8 @@ void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium
 	growth_rate_warning = 0;
 
 	try {
-		int slices = core_profiles.profiles_1d.time.rows();
-		if (equilibrium.time.rows() != slices)
+		int slices = core_profiles.profiles_1d.rows();
+		if (equilibrium.time_slice.rows() != slices)
 			throw std::invalid_argument(
 					"Number of cpo slices is different in core_profiles and equilibrium.");
 

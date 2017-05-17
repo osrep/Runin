@@ -74,15 +74,6 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
 	//! read electron density profile length of dataset: cells	
 	int cells = core_profiles.profiles_1d[timeindex].grid.rho_tor.rows();
 	
-	//! read electron temperature profile length of dataset, comparing with cells
-	if (core_profiles.te.value.rows() != cells)
-		throw std::invalid_argument("Number of values is different in core_profiles ne and te.");
-
-	//! read eparallel profile length of dataset, comparing with cells
-	if (core_profiles.profiles1d.eparallel.value.rows() != cells)
-		throw std::invalid_argument(
-				"Number of values is different in core_profiles.ne and core_profiles.profiles1d.eparallel.");
-
     //! read data in every $\rho$ 
 	for (int rho = 0; rho < cells; rho++) {
 		cell celll;
@@ -95,7 +86,7 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
 		*/
 				
 		celll.electric_field = core_profiles.profiles_1d[timeindex].e_field_parallel.value(rho) * core_profiles.profiles_1d[timeindex].vacuum_toroidal_field.b0
-				/ interpolate(equilibrium.profiles_1d.rho_tor, equilibrium.profiles_1d.b_average,
+				/ interpolate(equilibrium.timeslice[timeindex].profiles_1d.rho_tor, equilibrium.timeslice[timeindex].profiles_1d.b_average,
 						core_profiles.profiles_1d[timeindex].grid.rho_tor(rho));
 						
 		//! total sum of electric charge in \a rho cell
