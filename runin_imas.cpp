@@ -56,11 +56,11 @@ void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium
 	try {
 	//! critical field: \sa is_field_critical
 		critical_field_warning = is_field_critical(
-				imas_to_profile_imas(core_profiles, equilibrium,0));
+				ids_to_profile(core_profiles, equilibrium,0));
 
 	//! growth rate: \sa is_growth_rate_over_limit
 		growth_rate_warning = is_growth_rate_over_limit(
-				imas_to_profile_imas(core_profiles, equilibrium,0), growth_rate_limit);
+				ids_to_profile(core_profiles, equilibrium,0), growth_rate_limit);
 
 	} catch (const std::exception& ex) {
 		std::cerr << "ERROR An error occurred during firing actor Runaway Indicator." << std::endl;
