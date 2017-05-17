@@ -50,7 +50,7 @@ main function
 fix time label
 
 */
-void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equilibrium, 
+void fire(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equilibrium, 
         double &growth_rate_limit,	int &critical_field_warning, int &growth_rate_warning) {
 
 	try {
@@ -78,7 +78,7 @@ void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium
 main function
 
 arrays by time*/
-void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equilibrium,
+void fire(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equilibrium,
         double &growth_rate_limit,	int &critical_field_warning, int &growth_rate_warning,
         double &critical_field_time, double &growth_rate_time) {
 
