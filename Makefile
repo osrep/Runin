@@ -5,9 +5,14 @@ CXXFLAGS+=$(shell eval-pkg-config --cflags ual-cpp-gnu)
 LDFLAGS=$(shell eval-pkg-config --libs ual-cpp-gnu)
 CXXFLAGS += $(shell eval-pkg-config --cflags itmconstants)
 
-all: librunin.a 
+all:  librunin.a
 
-librunin.a: runin.o cpo_utils.o critical_field.o growth_rate.o
+imas: librunin_imas.a
+
+librunin.a:      runin.o      cpo_utils.o critical_field.o growth_rate.o
+	ar -rvs $@ $^
+	
+librunin_imas.a: runin_imas.o ids_utils.o critical_field.o growth_rate.o
 	ar -rvs $@ $^
 	
 test/test.o: test/test.cpp
