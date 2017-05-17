@@ -90,10 +90,10 @@ void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium
 		if (equilibrium.time_slice.rows() != slices)
 			throw std::invalid_argument(
 					"Number of cpo slices is different in core_profiles and equilibrium.");
-
+/*
 		int slice = 0;
 		for (slice = 0; slice < slices; slice++) {
-/*
+
 			if (!equal(core_profiles.time[slice], equilibrium.time[slice], 0.01))
 				throw std::invalid_argument("Time value differs in cpo slices of the same index.");
 
@@ -113,9 +113,9 @@ void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium
 						growth_rate_limit);
 
 				if (growth_rate_warning != 0)
-					growth_rate_time = core_profiles.time[slice];*/
+					growth_rate_time = core_profiles.time[slice];
 			}
-		}
+		}*/
 
 	} catch (const std::exception& ex) {
 		std::cerr << "ERROR An error occurred during firing actor Runaway Indicator." << std::endl;
