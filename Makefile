@@ -9,7 +9,7 @@ ifeq ($(ITM_ENVIRONMENT_LOADED), yes)
     $(info *** Compiler set to ITM *** )
 else
     CXXFLAGS += $(shell pkg-config --cflags imas-cpp)
-    LDFLAGS = $(shell pkg-config --libs imas-cpp)    
+    LDFLAGS = $(shell pkg-config --libs imas-cpp blitz)    
     all: librunin_imas.a
     $(info *** Compiler set to IMAS *** )
 endif
