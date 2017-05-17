@@ -3,7 +3,7 @@ CXX=g++
 CXXFLAGS = -pthread -g -fPIC 
 
 ifeq ($(ITM_ENVIRONMENT_LOADED), yes)
-    CXXFLAGS += $(shell eval-pkg-config --cflags ual-cpp-gnu --cflags itmconstants)
+    CXXFLAGS += $(shell eval-pkg-config --cflags ual-cpp-gnu --cflags itmconstants -DITM_CONSTANTS)
     LDFLAGS = $(shell eval-pkg-config --libs ual-cpp-gnu)    
     all:  librunin.a
     $(info *** Compiler set to ITM *** )

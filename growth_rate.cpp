@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <cmath>
 #include <vector>
-#include <itm_constants.h>
+#include "constants.h"
 #include "growth_rate.h"
 #include "critical_field.h"
 
