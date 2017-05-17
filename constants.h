@@ -1,10 +1,10 @@
 #ifdef ITM_CONSTANTS
     #include <itm_constants.h>
     
-#elif IMAS_CONSTANS
+#elif IMAS_CONSTANTS
     #include <imas_constants.h>
     
-#else/*
+#else
     //! value of \f$ \pi \f$
     #define ITM_PI		3.141592653589793238462643383280
 
@@ -28,5 +28,5 @@
 
     //! ERROR CODE
     #define ITM_INVALID_INT	-999999999
-*/
+
 #endif
