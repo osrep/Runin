@@ -103,7 +103,7 @@ void fire_imas(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium
 						ids_to_profile(core_profiles, equilibrium, slice));
 
 				if (critical_field_warning != 0)
-					critical_field_time = core_profiles[slice].time;
+					critical_field_time = core_profiles.time[slice];
 			}
 
 			//! growth rate: \sa is_growth_rate_over_limit
