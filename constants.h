@@ -5,7 +5,7 @@
     #include "/gw/swimas/core/imas-constants/0.1.1/include/imas_constants.h"
     
     //! value of \f$ \pi \f$
-    #define IM_PI		IMAS_PI
+    #define ITM_PI		IMAS_PI
 
     //! speed of light [m/s]
     #define ITM_C		IMAS_C
