@@ -2,7 +2,7 @@
     #include <itm_constants.h>
     
 #elif IMAS_CONSTANTS
-    #include <imas_constants.h>
+    #include "/gw/swimas/core/imas-constants/0.1.1/include/imas_constants.h"
     
 #else
     //! value of \f$ \pi \f$
