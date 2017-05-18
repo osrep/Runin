@@ -86,7 +86,7 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
 		*/
 				
 		celll.electric_field = core_profiles.profiles_1d(timeindex).e_field_parallel(rho) * core_profiles.vacuum_toroidal_field.b0(timeindex)
-				/ interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor, equilibrium.time_slice(timeindex).profiles_1d.b_average,
+				/ interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor, equilibrium.time_slice(timeindex).profiles_1d.b_field_average,
 						core_profiles.profiles_1d(timeindex).grid.rho_tor(rho));
 						
 		//! total sum of electric charge in \a rho cell
