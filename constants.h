@@ -4,6 +4,27 @@
 #elif IMAS_CONSTANTS
     #include "/gw/swimas/core/imas-constants/0.1.1/include/imas_constants.h"
     
+    //! value of \f$ \pi \f$
+    #define IM_PI		IMAS_PI
+
+    //! speed of light [m/s]
+    #define ITM_C		IMAS_C
+
+    //! electron volt [eV]
+    #define ITM_EV		IMAS_EV
+
+    //! elementary charge [coulomb]
+    #define ITM_QE		ITM_EV
+
+    //! \f$ m_e \f$ electron mass [kg]
+    #define ITM_ME		IMAS_ME
+
+    //! \f$ \mu_0 \f$ vacuum permeability
+    #define ITM_MU0		IMAS_MU0
+
+    //! \f$ \epsilon_0 \f$ vacuum permittivity
+    #define ITM_EPS0	IMAS_EPS0    
+    
     //! ERROR CODE
     #define ITM_INVALID_INT	-999999999
     
