@@ -4,6 +4,9 @@
 #elif IMAS_CONSTANTS
     #include "/gw/swimas/core/imas-constants/0.1.1/include/imas_constants.h"
     
+    //! ERROR CODE
+    #define ITM_INVALID_INT	-999999999
+    
 #else
     //! value of \f$ \pi \f$
     #define ITM_PI		3.141592653589793238462643383280
