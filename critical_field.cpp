@@ -22,7 +22,7 @@ int is_field_critical(profile pro) {
 	double rho_max = 0.95;
 
 	for (std::vector<cell>::iterator it = pro.begin(); it != pro.end(); ++it) {
-		if ( (calculate_critical_field(it->electron_density, it->electron_temperature) > (abs(it->electric_field)))
+		if ( (abs(it->electric_field)) > (calculate_critical_field(it->electron_density, it->electron_temperature) )
 		  && (it->rho < rho_max) )
 			return 1;
 	}
