@@ -5,6 +5,6 @@
 # without test files
 make
 
-# with test files
-make test
-./test.bin
+# with test files - Disabled due to lack of central gtest installation
+# make test
+# ./test.bin
