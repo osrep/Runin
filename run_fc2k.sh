@@ -2,7 +2,10 @@
 
 ####### building FC2K files #######
 
-# runafluid (make)
-fc2k -docfile doc/runaway_indicator.txt -codeversion 1.5.0 fc2k/runaway_indicator.xml 
+# runaway indicator (EU-IM)
 
-
+if ($ITM_ENVIRONMENT_LOADED == yes) then
+    fc2k -docfile doc/runaway_indicator.txt -codeversion 1.6.2 fc2k/runaway_indicator.xml 
+else
+    fc2k -docfile doc/runaway_indicator.txt -codeversion 1.6.2 fc2k_imas/runaway_indicator.xml 
+endif
