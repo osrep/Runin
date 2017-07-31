@@ -25,7 +25,7 @@ test/test.o: test/test.cpp
 	$(CXX) -include UALClasses.h $(CXXFLAGS) -I$(GTEST)/include/ -c -o $@ $^
 
 test: runin.o cpo_utils.o critical_field.o growth_rate.o test/test.o
-	$(CXX) $(LDFLAGS) -L$(GTEST) -lgtest_main $^ -lgtest -o test.bin
+	$(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
 
 .o: .cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $^
