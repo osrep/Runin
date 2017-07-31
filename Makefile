@@ -22,7 +22,7 @@ librunin_imas.a: runin_imas.o ids_utils.o critical_field.o growth_rate.o
 	ar -rvs $@ $^
 	
 test/test.o: test/test.cpp
-	$(CXX) -include UALClasses.h $(CXXFLAGS) -I$(ITMWORK)/gtest-1.7.0/include/ -c -o $@ $^
+	$(CXX) -include UALClasses.h $(CXXFLAGS) -I$(GTEST)/include/ -c -o $@ $^
 
 test: runin.o cpo_utils.o critical_field.o growth_rate.o test/test.o
 	$(CXX) $(LDFLAGS) -L$(GTEST) -lgtest_main $^ -lgtest -o test.bin
