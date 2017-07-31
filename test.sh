@@ -1,8 +1,8 @@
 #!/bin/tcsh -fe
 # This script starts unit tests of Runin.
 make --directory=$GTEST/make || exit
-cmake -E chdir $GTEST  || exit
+cmake -E chdir $GTEST echo "" || exit
 make --directory=$GTEST || exit
-make test
+make test || exit
 chmod 755 test.bin || exit
 ./test.bin || exit
