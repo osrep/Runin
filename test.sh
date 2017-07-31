@@ -2,6 +2,6 @@
 # This script starts unit tests of Runin.
 make --directory=$GTEST/make || exit
 cmake $GTEST || exit
-make test  || exit
+make test
 chmod 755 test.bin || exit
 ./test.bin || exit
