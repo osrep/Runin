@@ -13,7 +13,6 @@ if ( "$GTEST" == "" ) then      # parentheses not strictly needed in this simple
     echo "# google test init"
     echo 'setenv GTEST $ITMWORK/gtest-1.8.0/googletest'
     echo 'setenv LD_LIBRARY_PATH $LD_LIBRARY_PATH\:$GTEST'
-
 else 
     make test || exit
     chmod 755 test.bin || exit
