@@ -65,6 +65,19 @@ double interpolate(const Array<double, 1> &x, const Array<double, 1> &y, double 
 	return y(index) + (y(index + 1) - y(index)) / (x(index + 1) - x(index)) * (xa - x(index));
 }
 
+
+int get_digit(int number, int digit){
+
+	int number2,number3;
+	for (int i = 0; i < digit; i++){
+		number2 = number/10;
+		number3 = number - 10*number2;		
+		number = number2; 		
+	}	
+	
+	return number3;
+}
+
 // IMAS utilities
 // https://portal.iter.org/departments/POP/CM/IMDesign/Data%20Model/CI/imas-3.7.3/html_documentation.html
 profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex){
@@ -85,8 +98,10 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
 			where B_\mathrm{av} is known on discreate \f$R \f$ major radius and interpolated at $\rho$ normalised minor radius
 		*/
 				
-		celll.electric_field = core_profiles.profiles_1d(timeindex).e_field.parallel(rho) * core_profiles.vacuum_toroidal_field.b0(timeindex)
-				/ interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor, equilibrium.time_slice(timeindex).profiles_1d.b_field_average,
+		celll.electric_field = core_profiles.profiles_1d(timeindex).e_field.parallel(rho) * 		
+		        interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor, equilibrium.vacuum_toroidal_field.b0(timeindex),
+						core_profiles.profiles_1d(timeindex).grid.rho_tor(rho)) /		
+				interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor, equilibrium.time_slice(timeindex).profiles_1d.b_field_average,
 						core_profiles.profiles_1d(timeindex).grid.rho_tor(rho));
 						
 		//! total sum of electric charge in \a rho cell
