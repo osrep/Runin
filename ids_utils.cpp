@@ -98,9 +98,7 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
 			where B_\mathrm{av} is known on discreate \f$R \f$ major radius and interpolated at $\rho$ normalised minor radius
 		*/
 				
-		celll.electric_field = core_profiles.profiles_1d(timeindex).e_field.parallel(rho) * 		
-		        interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor, equilibrium.vacuum_toroidal_field.b0(timeindex),
-						core_profiles.profiles_1d(timeindex).grid.rho_tor(rho)) /		
+		celll.electric_field = core_profiles.profiles_1d(timeindex).e_field.parallel(rho) *  equilibrium.vacuum_toroidal_field.b0(timeindex) /		
 				interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor, equilibrium.time_slice(timeindex).profiles_1d.b_field_average,
 						core_profiles.profiles_1d(timeindex).grid.rho_tor(rho));
 						
