@@ -87,7 +87,7 @@ int fill_rho_tor_norm(const IdsNs::IDS::core_profiles &core_profiles, const IdsN
 	int N_rho_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.rows();
 
     if (N_rho_norm==0){
-        core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.resize(N_rho);
+        core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.resize(N_rho, 1);
     }
     
     for (int i = 0; i < N_rho; i++){
