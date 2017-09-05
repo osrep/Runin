@@ -24,8 +24,8 @@ librunin_imas.a: runin_imas.o ids_utils.o critical_field.o growth_rate.o
 test/test_phys.o: test/test_phys.cpp
 	$(CXX) -include UALClasses.h $(CXXFLAGS) -I$(GTEST)/include/ -c -o $@ $^
 
-test/test_ids.o: test/test_ids.cpp
-    $(CXX) -include UALClasses.h $(CXXFLAGS) -I$(GTEST)/include/ -c -o $@ $^
+#test/test_ids.o: test/test_ids.cpp
+   # $(CXX) -include UALClasses.h $(CXXFLAGS) -I$(GTEST)/include/ -c -o $@ $^
 
 test/test_cpo.o: test/test_cpo.cpp
     $(CXX) -include UALClasses.h $(CXXFLAGS) -I$(GTEST)/include/ -c -o $@ $^
