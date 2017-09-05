@@ -92,7 +92,7 @@ double fill_rho_tor_norm(const IdsNs::IDS::core_profiles &core_profiles, const I
             equilibrium.time_slice(timeindex).profiles_1d.rho_tor_norm,
 		    core_profiles.profiles_1d(timeindex).grid.rho_tor(cpindex));
     }else{
-        rho_tor_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm(cpindex)
+        rho_tor_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm(cpindex);
     }
 
 }
