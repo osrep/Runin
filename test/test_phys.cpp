@@ -121,8 +121,12 @@ EXPECT_NEAR(reference_growth_rate_2, calculate_growth_rate(reference_ne, referen
 
 TEST(CriticalField, IsFieldCritical) {
 cell cell1, cell2;
-
+/*
 cell1.electron_density = 0.9*reference_ne;
+cell1.electron_temperature = reference_te;
+cell1.electric_field = reference_critical_field;
+*/
+cell1.electron_density = 1.1*reference_ne;
 cell1.electron_temperature = reference_te;
 cell1.electric_field = reference_critical_field;
 
@@ -132,10 +136,11 @@ cell2.electric_field = reference_critical_field;
 
 profile pro;
 pro.push_back(cell1);
-EXPECT_EQ(1, is_field_critical(pro));
+EXPECT_NEAR(1, is_field_critical(pro));
+
 
 pro.push_back(cell2);
-EXPECT_EQ(0, is_field_critical(pro));
+EXPECT_NEAR(0, is_field_critical(pro));
 }
 
 TEST(GrowthRate, IsGrowthRateOverLimit) {
