@@ -81,19 +81,18 @@ int get_digit(int number, int digit){
 
 // if rho_tor_norm empty, we need to fill it up
 
-int fill_rho_tor_norm(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equilibrium, int timeindex){
+double fill_rho_tor_norm(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int cpindex, int timeindex){
     
-	int N_rho = core_profiles.profiles_1d(timeindex).grid.rho_tor.rows();
+    double rho_tor_norm;
+    
 	int N_rho_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.rows();
 
     if (N_rho_norm==0){
-        core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.resize(N_rho);
-    }
-    
-    for (int i = 0; i < N_rho; i++){
-        core_profiles.profiles_1d(timeindex).grid.rho_tor_norm(i) = interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor,
+        rho_tor_norm = interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor,
             equilibrium.time_slice(timeindex).profiles_1d.rho_tor_norm,
-		    core_profiles.profiles_1d(timeindex).grid.rho_tor(i));
+		    core_profiles.profiles_1d(timeindex).grid.rho_tor(cpindex));
+    }else{
+        rho_tor_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm(cpindex)
     }
 
 }
@@ -111,6 +110,7 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
     //! read data in every $\rho$ 
 	for (int i = 0; i < N_rho; i++) {
 		cell celll;
+		celll.rho = fill_rho_tor_norm(core_profiles, equilibrium, i, timeindex);
 		celll.electron_density = core_profiles.profiles_1d(timeindex).electrons.density(i);
 		celll.electron_temperature = core_profiles.profiles_1d(timeindex).electrons.temperature(i);
 		
