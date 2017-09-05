@@ -136,11 +136,11 @@ cell2.electric_field = reference_critical_field;
 
 profile pro;
 pro.push_back(cell1);
-EXPECT_NEAR(1, is_field_critical(pro));
+EXPECT_NEAR(1, is_field_critical(pro), 0.1);
 
 
 pro.push_back(cell2);
-EXPECT_NEAR(0, is_field_critical(pro));
+EXPECT_NEAR(0, is_field_critical(pro), 0.1);
 }
 
 TEST(GrowthRate, IsGrowthRateOverLimit) {
