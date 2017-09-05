@@ -2,7 +2,11 @@
 #include "../critical_field.h"
 #include "../growth_rate.h"
 #include "../cell.h"
-#include "../ids_utils.h"
+#ifdef ITM_CONSTANTS
+    #include "../cpo_utils.h"
+#else
+    #include "../ids_utils.h"
+#endif
 
 const double reference_te = 1e5;
 const double reference_ne = 1e21;
