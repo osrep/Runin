@@ -91,8 +91,7 @@ int fill_rho_tor_norm(const IdsNs::IDS::core_profiles &core_profiles, const IdsN
     }
     
     for (int i = 0; i < N_rho; i++){
-        core_profiles.profiles_1d(timeindex).grid.rho_tor_norm(i) = interpolate(
-            equilibrium.time_slice(timeindex).profiles_1d.rho_tor,
+        core_profiles.profiles_1d(timeindex).grid.rho_tor_norm(i) = interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor,
             equilibrium.time_slice(timeindex).profiles_1d.rho_tor_norm,
 		    core_profiles.profiles_1d(timeindex).grid.rho_tor(i));
     }
