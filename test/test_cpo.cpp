@@ -5,7 +5,6 @@
 
 const double reference_te = 1e5;
 const double reference_ne = 1e21;
-const double reference_critical_field = 0.83625;
 const double reference_growth_rate_1 = 8.27939e20;
 const double reference_growth_rate_2 = 2.27479e21;
 const double reference_Zeff_1 = 1.0;
