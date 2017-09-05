@@ -81,13 +81,13 @@ int get_digit(int number, int digit){
 
 // if rho_tor_norm empty, we need to fill it up
 
-int fill_rho_tor_norm(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex){
+int fill_rho_tor_norm(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equilibrium, int timeindex){
     
 	int N_rho = core_profiles.profiles_1d(timeindex).grid.rho_tor.rows();
 	int N_rho_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.rows();
 
     if (N_rho_norm==0){
-        core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.resize(N_rho, 1);
+        core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.resize(N_rho);
     }
     
     for (int i = 0; i < N_rho; i++){
