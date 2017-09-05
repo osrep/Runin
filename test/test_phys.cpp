@@ -104,11 +104,11 @@ TEST(CriticalField, CalculateCriticalField) {
 }
 
 TEST(GrowthRate, CalculateDreicerField) {
-EXPECT_NEAR(reference_dreicer_field, calculate_dreicer_field(reference_thermal_electron_collision_time, reference_te), 0.01);
+	EXPECT_NEAR(reference_dreicer_field, calculate_dreicer_field(reference_thermal_electron_collision_time, reference_te), 0.01);
 }
 
 TEST(GrowthRate, CalculateThermalElectronCollisionTime) {
-EXPECT_NEAR(reference_thermal_electron_collision_time, calculate_thermal_electron_collision_time(reference_ne,reference_te), 0.0001);
+	EXPECT_NEAR(reference_thermal_electron_collision_time, calculate_thermal_electron_collision_time(reference_ne,reference_te), 0.0001);
 }
 
 TEST(GrowthRate, CalculateGrowthRate_1) {
@@ -116,51 +116,49 @@ TEST(GrowthRate, CalculateGrowthRate_1) {
 }
 
 TEST(GrowthRate, CalculateGrowthRate_2) {
-EXPECT_NEAR(reference_growth_rate_2, calculate_growth_rate(reference_ne, reference_te, reference_Zeff_2, reference_electric_field_2), 1e18);
+	EXPECT_NEAR(reference_growth_rate_2, calculate_growth_rate(reference_ne, reference_te, reference_Zeff_2, reference_electric_field_2), 1e18);
 }
 
 TEST(CriticalField, IsFieldCritical) {
-cell cell1, cell2;
-/*
-cell1.electron_density = 0.9*reference_ne;
-cell1.electron_temperature = reference_te;
-cell1.electric_field = reference_critical_field;
-*/
-cell1.electron_density = 1.1*reference_ne;
-cell1.electron_temperature = reference_te;
-cell1.electric_field = reference_critical_field;
+	cell cell1, cell2;
 
-cell2.electron_density = 0.9*reference_ne;
-cell2.electron_temperature = reference_te;
-cell2.electric_field = reference_critical_field;
+	//increasing critical field
+	cell1.electron_density = 1.1*reference_ne;
+	cell1.electron_temperature = reference_te;
+	cell1.electric_field = reference_critical_field;
 
-profile pro;
-pro.push_back(cell1);
-EXPECT_NEAR(0, is_field_critical(pro), 0.1);
-EXPECT_NEAR(reference_critical_field, calculate_critical_field(reference_ne,reference_te), 0.1);
+	//decreasing critical field
+	cell2.electron_density = 0.9*reference_ne;
+	cell2.electron_temperature = reference_te;
+	cell2.electric_field = reference_critical_field;
 
-pro.push_back(cell2);
-EXPECT_NEAR(1, is_field_critical(pro), 0.1);
+	profile pro;
+	pro.push_back(cell1);
+	EXPECT_NEAR(0, is_field_critical(pro), 0.1);
+	EXPECT_NEAR(reference_critical_field, calculate_critical_field(reference_ne,reference_te), 0.1);
+
+	pro.push_back(cell2);
+	EXPECT_NEAR(1, is_field_critical(pro), 0.1);
 
 }
 
 TEST(GrowthRate, IsGrowthRateOverLimit) {
-cell cell1, cell2;
+	cell cell1, cell2;
 
-cell1.electron_density = 0.9*reference_ne;
-cell1.electron_temperature = reference_te;
-cell1.effective_charge = reference_Zeff_1;
-cell1.electric_field = reference_electric_field_1;
+	cell1.electron_density = 0.9*reference_ne;
+	cell1.electron_temperature = reference_te;
+	cell1.effective_charge = reference_Zeff_1;
+	cell1.electric_field = reference_electric_field_1;
 
-cell2.electron_density = 1.1*reference_ne;
-cell2.electron_temperature = reference_te;
-cell2.effective_charge = reference_Zeff_2;
-cell2.electric_field = reference_electric_field_2;
+	cell2.electron_density = 1.1*reference_ne;
+	cell2.electron_temperature = reference_te;
+	cell2.effective_charge = reference_Zeff_2;
+	cell2.electric_field = reference_electric_field_2;
 
-profile pro;
-pro.push_back(cell1);
-EXPECT_EQ(1, is_growth_rate_over_limit(pro, reference_growth_rate_1));
+	profile pro;
+	pro.push_back(cell1);
+	EXPECT_EQ(1, is_growth_rate_over_limit(pro, reference_growth_rate_1));
 
-pro.push_back(cell2);
-EXPECT_EQ(0, is_growth_rate_over_limit(pro, reference_growth_rate_2));
+	pro.push_back(cell2);
+	EXPECT_EQ(0, is_growth_rate_over_limit(pro, reference_growth_rate_2));
 }
