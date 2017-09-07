@@ -21,22 +21,24 @@ IdsNs::IDS::equilibrium equilibrium;
 void create_ids() {
 
     int N_rho = 5;
+    
     core_profiles.profiles_1d.resize(1);
     core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.resize(N_rho);
     core_profiles.profiles_1d(timeindex).grid.rho_tor_norm = 0.0, 0.1, 0.25, 0.40, 0.70;
     core_profiles.profiles_1d(timeindex).e_field.parallel.resize(N_rho);
     core_profiles.profiles_1d(timeindex).e_field.parallel = 1.0, 2.0, 3.0, 5.0, 9.0;
-
     core_profiles.profiles_1d(timeindex).electrons.density.resize(N_rho);
     core_profiles.profiles_1d(timeindex).electrons.density = 10.0, 11.0, 12.0, 14.0, 18.0;
     core_profiles.profiles_1d(timeindex).electrons.temperature.resize(N_rho);
     core_profiles.profiles_1d(timeindex).electrons.temperature = 20.0, 21.0, 22.0, 24.0, 28.0;
     core_profiles.profiles_1d(timeindex).zeff.resize(N_rho);
     core_profiles.profiles_1d(timeindex).zeff = 1.0, 1.3, 1.5, 1.75, 2.0;
-
+    
     equilibrium.vacuum_toroidal_field.b0.resize(1);
     equilibrium.vacuum_toroidal_field.b0(timeindex) = reference_magnetic_field;
     equilibrium.time_slice.resize(1);   
+    equilibrium.time_slice(timeindex).profiles_1d.rho_tor_norm.resize(N_rho);
+    equilibrium.time_slice(timeindex).profiles_1d.rho_tor_norm = 0.0, 0.1, 0.25, 0.40, 0.70;
     equilibrium.time_slice(timeindex).profiles_1d.b_field_average.resize(N_rho);
     equilibrium.time_slice(timeindex).profiles_1d.b_field_average = 3.0, 2.4, 2.0, 1.75, 1.0;
 
@@ -74,11 +76,11 @@ TEST(IdsToProfile, ElectricField) {
 
 	ASSERT_EQ(5, pro.size());
 
-	EXPECT_DOUBLE_EQ(1.0 * 2.0 / 5.5, pro[0].electric_field);
-	EXPECT_DOUBLE_EQ(2.0 * 2.0 / 1.5, pro[1].electric_field);
-	EXPECT_DOUBLE_EQ(3.0 * 2.0 / 2.5, pro[2].electric_field);
-	EXPECT_DOUBLE_EQ(5.0 * 2.0 / 1.9, pro[3].electric_field);
-	EXPECT_DOUBLE_EQ(9.0 * 2.0 / 7.6, pro[4].electric_field);
+	EXPECT_DOUBLE_EQ(1.0 * 2.3 / 3.0, pro[0].electric_field);
+	EXPECT_DOUBLE_EQ(2.0 * 2.3 / 2.4, pro[1].electric_field);
+	EXPECT_DOUBLE_EQ(3.0 * 2.3 / 2.0, pro[2].electric_field);
+	EXPECT_DOUBLE_EQ(5.0 * 2.3 / 1.75, pro[3].electric_field);
+	EXPECT_DOUBLE_EQ(9.0 * 2.3 / 1.0, pro[4].electric_field);
 }
 
 TEST(IdsToProfile, EffectiveCharge) {
