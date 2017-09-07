@@ -27,9 +27,9 @@ void create_ids() {
     core_profiles.profiles_1d(timeindex).e_field.parallel = 1.0, 2.0, 3.0, 5.0, 9.0;
 
     core_profiles.profiles_1d(timeindex).electrons.density.resize(N_rho);
-    core_profiles.profiles_1d(timeindex).electrons.density = 10.0, 11.0, 12.0, 14.0, 18.0;
+    core_profiles.profiles_1d(timeindex).electrons.density = 1.0e19, 1.1e19, 1.2e19, 1.4e19, 1.8e19;
     core_profiles.profiles_1d(timeindex).electrons.temperature.resize(N_rho);
-    core_profiles.profiles_1d(timeindex).electrons.temperature = 20.0, 21.0, 22.0, 24.0, 28.0;
+    core_profiles.profiles_1d(timeindex).electrons.temperature = 2.0e1, 2.1e2, 2.2e3, 2.4e4, 2.8e5;
     core_profiles.profiles_1d(timeindex).zeff.resize(N_rho);
     core_profiles.profiles_1d(timeindex).zeff = 1.0, 1.3, 1.5, 1.75, 2.0;
 
