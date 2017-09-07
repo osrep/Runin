@@ -7,12 +7,23 @@ ifeq ($(ITM_ENVIRONMENT_LOADED), yes)
     CXXFLAGS +=-DITM_CONSTANTS
     LDFLAGS = $(shell eval-pkg-config --libs ual-cpp-gnu)    
     all:  librunin.a
-    $(info *** Compiler set to ITM *** )
-else
+    test: runin.o cpo_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_cpo.o
+	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
+    $(info *** Compiler set to ITM *** )    
+else ifeq ($(IMAS_ENVIRONMENT_LOADED), yes)
     CXXFLAGS += $(shell pkg-config --cflags imas-cpp blitz imas-constants-cpp)
     LDFLAGS = $(shell pkg-config --libs imas-cpp blitz)    
     all: librunin_imas.a
+    test: runin.o ids_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_ids.o
+	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test_imas.bin
     $(info *** Compiler set to IMAS *** )
+else
+    CXXFLAGS += $(shell pkg-config --cflags imas-cpp blitz)
+    LDFLAGS = $(shell pkg-config --libs imas-cpp blitz)    
+    all: librunin_imas.a
+    test: runin.o ids_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_ids.o
+	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test_imas.bin
+    $(info *** Compiler set to IMAS (no imas-constants) *** )
 endif
 
 librunin.a:      runin.o      cpo_utils.o critical_field.o growth_rate.o
@@ -30,8 +41,7 @@ test/test_ids.o: test/test_ids.cpp
 test/test_cpo.o: test/test_cpo.cpp
 	$(CXX) -include UALClasses.h $(CXXFLAGS) -I$(GTEST)/include/ -c -o $@ $^
 
-test: runin.o cpo_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_cpo.o
-	$(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
+
 
 .o: .cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $^
