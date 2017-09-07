@@ -85,9 +85,10 @@ double fill_rho_tor_norm(const IdsNs::IDS::core_profiles &core_profiles, const I
     
     double rho_tor_norm;
     
-	int N_rho_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.rows();
+	int N_rho_tor = core_profiles.profiles_1d(timeindex).grid.rho_tor.rows();
+	int N_rho_tor_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.rows();
 
-    if (N_rho_norm==0){
+    if (N_rho_tor>N_rho_tor_norm){
         rho_tor_norm = interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor,
             equilibrium.time_slice(timeindex).profiles_1d.rho_tor_norm,
 		    core_profiles.profiles_1d(timeindex).grid.rho_tor(cpindex));
@@ -107,7 +108,11 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
 	profile pro;
 
 	//! read electron density profile length of dataset: N_rho
-	int N_rho = core_profiles.profiles_1d(timeindex).grid.rho_tor.rows();
+	int N_rho_tor = core_profiles.profiles_1d(timeindex).grid.rho_tor.rows();
+	int N_rho_tor_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.rows();
+	
+	int N_rho = (N_rho_tor>N_rho_tor_norm)?N_rho_tor:N_rho_tor_norm;
+	
 	
     //! read data in every $\rho$ 
 	for (int i = 0; i < N_rho; i++) {
