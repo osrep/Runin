@@ -95,6 +95,8 @@ double fill_rho_tor_norm(const IdsNs::IDS::core_profiles &core_profiles, const I
         rho_tor_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm(cpindex);
     }
 
+	return rho_tor_norm;
+
 }
 
 
