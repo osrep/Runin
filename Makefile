@@ -15,14 +15,14 @@ else ifeq ($(IMAS_ENVIRONMENT_LOADED), yes)
     LDFLAGS = $(shell pkg-config --libs imas-cpp blitz)    
     all: librunin_imas.a
     test: runin_imas.o ids_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_ids.o
-	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test_imas.bin
+	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
     $(info *** Compiler set to IMAS *** )
 else
     CXXFLAGS += $(shell pkg-config --cflags imas-cpp blitz)
     LDFLAGS = $(shell pkg-config --libs imas-cpp blitz)    
     all: librunin_imas.a
     test: runin_imas.o ids_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_ids.o
-	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test_imas.bin
+	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
     $(info *** Compiler set to IMAS (no imas-constants) *** )
 endif
 
