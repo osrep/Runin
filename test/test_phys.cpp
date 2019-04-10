@@ -10,11 +10,11 @@
 
 const double reference_te = 1e5;
 const double reference_ne = 1e21;
-const double reference_dreicer_field = 17.452;
-const double reference_electric_field = 0.83625;
-const double reference_growth_rate_1 = 8.27939e20;
-const double reference_growth_rate_2 = 2.27479e21;
-const double reference_thermal_electron_collision_time = 4.9909e-4;
+const double reference_dreicer_field = 19.531;
+const double reference_electric_field = 0.93588;
+const double reference_growth_rate_1 = 4.08249e20;
+const double reference_growth_rate_2 = 1.24638e21;
+const double reference_thermal_electron_collision_time = 4.4596e-4;
 const double reference_Zeff_1 = 1.0;
 const double reference_Zeff_2 = 1.2;
 const double reference_electric_field_1 = 1.0;
@@ -96,7 +96,7 @@ TEST(Interpolate, Intrapolate) {
 
 
 TEST(CoulombLog, CalculateCoulombLog) {
-	EXPECT_NEAR(16.4, calculate_coulomb_log(reference_ne, reference_te), 0.0001);
+	EXPECT_NEAR(18.35387764, calculate_coulomb_log(reference_ne, reference_te), 0.0001);
 }
 
 TEST(CriticalField, CalculateCriticalField) {
