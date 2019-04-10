@@ -60,7 +60,7 @@ double calculate_coulomb_log(double electron_density, double electron_temperatur
 	\f]
 	*/
 
-	return 14.9 - 0.5 * log10(electron_density * 1e-20) + log10(electron_temperature * 1e-3);
+	return 14.9 - 0.5 * log(electron_density * 1e-20) + log(electron_temperature * 1e-3);
 }
 
 double calculate_dreicer_field(double thermal_electron_collision_time, double electron_temperature){
