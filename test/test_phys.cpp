@@ -19,6 +19,7 @@ const double reference_Zeff_1 = 1.0;
 const double reference_Zeff_2 = 1.2;
 const double reference_electric_field_1 = 1.0;
 const double reference_electric_field_2 = 1.2;
+const double reference_Coulomb_log = 18.35387764;
 
 TEST(Equal, Tolerance) {
 	EXPECT_TRUE(equal(1.0, 1.1, 0.1));
@@ -96,7 +97,7 @@ TEST(Interpolate, Intrapolate) {
 
 
 TEST(CoulombLog, CalculateCoulombLog) {
-	EXPECT_NEAR(18.35387764, calculate_coulomb_log(reference_ne, reference_te), 0.0001);
+	EXPECT_NEAR(reference_Coulomb_log, calculate_coulomb_log(reference_ne, reference_te), 0.0001);
 }
 
 TEST(CriticalField, CalculateCriticalField) {
