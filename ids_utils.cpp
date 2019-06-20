@@ -1,21 +1,11 @@
 #include <stdexcept>
 #include "ids_utils.h"
 
-/*!
-\param a
-\param b
-\param tolerance
-
-\details
-\f[
-	2 \cdot \left| a-b\right| \le \left( |a| + |b| \right) \cdot tolerance
-\f]
-*/
 bool equal(double a, double b, double tolerance) {
 	return abs(a - b) * 2.0 <= (abs(a) + abs(b)) * tolerance;
 }
 
-//! Binary search 
+// Binary search 
 
 int binary_search(const Array<double, 1> &array, int first, int last, double search_key) {
 	if (first == last)
@@ -38,14 +28,8 @@ int binary_search(const Array<double, 1> &array, double search_key) {
 	return binary_search(array, 0, array.rows() - 2, search_key);
 }
 
-/*!
-linear interpolation
 
-\f[
-	y_a = y_i + \frac{y_{i+1}-y_i}{x_{i+1}-x_i}\cdot(x_a -x_i)
-\f]
-
-*/
+//linear interpolation
 
 double interpolate(const Array<double, 1> &x, const Array<double, 1> &y, double xa) {
 
@@ -102,7 +86,7 @@ double fill_rho_tor_norm(const IdsNs::IDS::core_profiles &core_profiles, const I
 
 
 // IMAS utilities
-// https://portal.iter.org/departments/POP/CM/IMDesign/Data%20Model/CI/imas-3.7.3/html_documentation.html
+
 profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex){
 
 	profile pro;
@@ -114,19 +98,14 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
 	int N_rho = (N_rho_tor>N_rho_tor_norm)?N_rho_tor:N_rho_tor_norm;
 	
 	
-    //! read data in every $\rho$ 
+    // read data in every rho 
 	for (int i = 0; i < N_rho; i++) {
 		cell celll;
 		celll.rho = fill_rho_tor_norm(core_profiles, equilibrium, i, timeindex);
 		celll.electron_density = core_profiles.profiles_1d(timeindex).electrons.density(i);
 		celll.electron_temperature = core_profiles.profiles_1d(timeindex).electrons.temperature(i);
 		
-		/*! local electric field
-			\f[ E = \frac{E_\parallel(\rho) B_0}{B_\mathrm{av}(\rho)} \f]
-			where B_\mathrm{av} is known on discreate \f$R \f$ major radius and interpolated at $\rho$ normalised minor radius
-		*/
-				
-
+	// local electric field		
         if (N_rho_tor>N_rho_tor_norm){		
 			celll.electric_field = core_profiles.profiles_1d(timeindex).e_field.parallel(i) *  equilibrium.vacuum_toroidal_field.b0(timeindex) /		
                         interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor, equilibrium.time_slice(timeindex).profiles_1d.b_field_average,
@@ -137,7 +116,7 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
                         celll.rho);
 		}
 						
-		//! total sum of electric charge in \a rho cell
+		// total sum of electric charge in a rho cell
 		celll.effective_charge = core_profiles.profiles_1d(timeindex).zeff(i);
 
 		pro.push_back(celll);
