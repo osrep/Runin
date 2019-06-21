@@ -1,7 +1,7 @@
 #ifndef CELL_H_
 #define CELL_H_
 
-//! cell structure	
+// cell structure	
 #include <vector>
 
 struct cell {
@@ -16,4 +16,4 @@ struct cell {
 
 typedef std::vector<cell> profile;
 
-#endif /* CELL_H_ */
+#endif	/* CELL_H_ */
