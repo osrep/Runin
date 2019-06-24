@@ -19,4 +19,4 @@ The current status of runaway electron modelling in ETS has been published in Nu
 
 [1]	J.W. Connor, R.J. Hastie, Relativistic limitations on runaway electrons, Nuclear Fusion 15, 415 (1975)
 [2]	H. Dreicer, Electron and Ion Runaway in a Fully Ionized Gas, Physical Review 115, 238 (1959)
-[3]	G.I. Pokol, et. al, Runaway electron modelling in the self-consistent core European Transport Simulator, ETS, Nuclear Fusion (2019)
+[3]	G.I. Pokol, et. al, Runaway electron modelling in the self-consistent core European Transport Simulator, ETS, Nuclear Fusion 59, 076024 (2019)
