@@ -1,20 +1,47 @@
 CXX=g++
 
 CXXFLAGS = -pthread -g -fPIC 
-CXXFLAGS+=$(shell eval-pkg-config --cflags ual-cpp-gnu)
-LDFLAGS=$(shell eval-pkg-config --libs ual-cpp-gnu)
-CXXFLAGS += $(shell eval-pkg-config --cflags itmconstants)
 
-all: librunin.a 
+ifeq ($(ITM_ENVIRONMENT_LOADED), yes)
+    CXXFLAGS += $(shell eval-pkg-config --cflags ual-cpp-gnu --cflags itmconstants)
+    CXXFLAGS +=-DITM_CONSTANTS
+    LDFLAGS = $(shell eval-pkg-config --libs ual-cpp-gnu)    
+    all:  librunin.a
+    test: runin.o cpo_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_cpo.o
+	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
+    $(info *** Compiler set to ITM *** )    
+else ifeq ($(IMAS_ENVIRONMENT_LOADED), yes)
+    CXXFLAGS += $(shell pkg-config --cflags imas-cpp blitz imas-constants-cpp)
+    LDFLAGS = $(shell pkg-config --libs imas-cpp blitz)    
+    all: librunin_imas.a
+    test: runin_imas.o ids_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_ids.o
+	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
+    $(info *** Compiler set to IMAS *** )
+else
+    CXXFLAGS += $(shell pkg-config --cflags imas-cpp blitz)
+    LDFLAGS = $(shell pkg-config --libs imas-cpp blitz)    
+    all: librunin_imas.a
+    test: runin_imas.o ids_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_ids.o
+	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
+    $(info *** Compiler set to IMAS (no imas-constants) *** )
+endif
 
-librunin.a: runin.o cpo_utils.o critical_field.o growth_rate.o
+librunin.a:      runin.o      cpo_utils.o critical_field.o growth_rate.o
 	ar -rvs $@ $^
 	
-test/test.o: test/test.cpp
-	$(CXX) -include UALClasses.h $(CXXFLAGS) -I$(ITMWORK)/gtest-1.7.0/include/ -c -o $@ $^
+librunin_imas.a: runin_imas.o ids_utils.o critical_field.o growth_rate.o
+	ar -rvs $@ $^
+	
+test/test_phys.o: test/test_phys.cpp
+	$(CXX) -include UALClasses.h $(CXXFLAGS) -I$(GTEST)/include/ -c -o $@ $^
 
-test: runin.o cpo_utils.o critical_field.o growth_rate.o test/test.o
-	$(CXX) $(LDFLAGS) -L$(ITMWORK)/gtest-1.7.0/ -lgtest_main $^ -lgtest -o test.bin
+test/test_ids.o: test/test_ids.cpp
+	$(CXX) -include UALClasses.h $(CXXFLAGS) -I$(GTEST)/include/ -c -o $@ $^
+
+test/test_cpo.o: test/test_cpo.cpp
+	$(CXX) -include UALClasses.h $(CXXFLAGS) -I$(GTEST)/include/ -c -o $@ $^
+
+
 
 .o: .cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $^
