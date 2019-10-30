@@ -76,11 +76,11 @@ TEST(IdsToProfile, ElectricField) {
 
 	ASSERT_EQ(5, pro.size());
 
-	EXPECT_DOUBLE_EQ(1.0 * 2.3 / 3.0, pro[0].electric_field);
-	EXPECT_DOUBLE_EQ(2.0 * 2.3 / 2.4, pro[1].electric_field);
-	EXPECT_DOUBLE_EQ(3.0 * 2.3 / 2.0, pro[2].electric_field);
-	EXPECT_DOUBLE_EQ(5.0 * 2.3 / 1.75, pro[3].electric_field);
-	EXPECT_DOUBLE_EQ(9.0 * 2.3 / 1.0, pro[4].electric_field);
+	EXPECT_DOUBLE_EQ(1.0, pro[0].electric_field);
+	EXPECT_DOUBLE_EQ(2.0, pro[1].electric_field);
+	EXPECT_DOUBLE_EQ(3.0, pro[2].electric_field);
+	EXPECT_DOUBLE_EQ(5.0, pro[3].electric_field);
+	EXPECT_DOUBLE_EQ(9.0, pro[4].electric_field);
 }
 
 TEST(IdsToProfile, EffectiveCharge) {
