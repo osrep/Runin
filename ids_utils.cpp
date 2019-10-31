@@ -105,16 +105,8 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
 		celll.electron_density = core_profiles.profiles_1d(timeindex).electrons.density(i);
 		celll.electron_temperature = core_profiles.profiles_1d(timeindex).electrons.temperature(i);
 		
-	// local electric field		
-        if (N_rho_tor>N_rho_tor_norm){		
-			celll.electric_field = core_profiles.profiles_1d(timeindex).e_field.parallel(i) *  equilibrium.vacuum_toroidal_field.b0(timeindex) /		
-                        interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor, equilibrium.time_slice(timeindex).profiles_1d.b_field_average,
-                        core_profiles.profiles_1d(timeindex).grid.rho_tor(i));
-		}else{
-			celll.electric_field = core_profiles.profiles_1d(timeindex).e_field.parallel(i) *  equilibrium.vacuum_toroidal_field.b0(timeindex) /		
-                        interpolate(equilibrium.time_slice(timeindex).profiles_1d.rho_tor_norm, equilibrium.time_slice(timeindex).profiles_1d.b_field_average,
-                        celll.rho);
-		}
+		// local electric field
+		celll.electric_field = core_profiles.profiles_1d(timeindex).e_field.parallel(i);
 						
 		// total sum of electric charge in a rho cell
 		celll.effective_charge = core_profiles.profiles_1d(timeindex).zeff(i);

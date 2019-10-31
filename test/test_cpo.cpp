@@ -14,7 +14,6 @@ const double reference_electric_field_2 = 1.2;
 
 ItmNs::Itm::coreprof coreprof;
 ItmNs::Itm::coreimpur coreimpur;
-ItmNs::Itm::equilibrium equilibrium;
 
 void create_cpo() {
 	coreprof.rho_tor.resize(5);
@@ -29,11 +28,6 @@ void create_cpo() {
 
 	coreprof.profiles1d.eparallel.value.resize(5);
 	coreprof.profiles1d.eparallel.value = 1.0, 2.0, 3.0, 5.0, 9.0;
-
-	equilibrium.profiles_1d.rho_tor.resize(8);
-	equilibrium.profiles_1d.rho_tor = 0.0, 1.0, 1.5, 2.0, 5.0, 10.0, 12.0, 15.0;
-	equilibrium.profiles_1d.b_av.resize(8);
-	equilibrium.profiles_1d.b_av = 5.5, 1.5, 5.5, 2.5, 1.6, 11.6, 15.5, 55.5;
 
 	coreprof.ni.value.resize(5, 2);
 	coreprof.ni.value = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
@@ -59,7 +53,7 @@ void create_cpo() {
 
 TEST(CpoToProfil, ElectronDensity) {
 	create_cpo();
-	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
+	profile pro = cpo_to_profile(coreprof, coreimpur);
 
 	ASSERT_EQ(5, pro.size());
 
@@ -72,7 +66,7 @@ TEST(CpoToProfil, ElectronDensity) {
 
 TEST(CpoToProfil, ElectronTemperature) {
 	create_cpo();
-	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
+	profile pro = cpo_to_profile(coreprof, coreimpur);
 
 	ASSERT_EQ(5, pro.size());
 
@@ -85,20 +79,20 @@ TEST(CpoToProfil, ElectronTemperature) {
 
 TEST(CpoToProfil, ElectricField) {
 	create_cpo();
-	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
+	profile pro = cpo_to_profile(coreprof, coreimpur);
 
 	ASSERT_EQ(5, pro.size());
 
-	EXPECT_DOUBLE_EQ(1.0 * 2.0 / 5.5, pro[0].electric_field);
-	EXPECT_DOUBLE_EQ(2.0 * 2.0 / 1.5, pro[1].electric_field);
-	EXPECT_DOUBLE_EQ(3.0 * 2.0 / 2.5, pro[2].electric_field);
-	EXPECT_DOUBLE_EQ(5.0 * 2.0 / 1.9, pro[3].electric_field);
-	EXPECT_DOUBLE_EQ(9.0 * 2.0 / 7.6, pro[4].electric_field);
+	EXPECT_DOUBLE_EQ(1.0, pro[0].electric_field);
+	EXPECT_DOUBLE_EQ(2.0, pro[1].electric_field);
+	EXPECT_DOUBLE_EQ(3.0, pro[2].electric_field);
+	EXPECT_DOUBLE_EQ(5.0, pro[3].electric_field);
+	EXPECT_DOUBLE_EQ(9.0, pro[4].electric_field);
 }
 
 TEST(CpoToProfil, EffectiveCharge) {
 	create_cpo();
-	profile pro = cpo_to_profile(coreprof, coreimpur, equilibrium);
+	profile pro = cpo_to_profile(coreprof, coreimpur);
 
 	ASSERT_EQ(5, pro.size());
 

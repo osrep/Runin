@@ -48,12 +48,11 @@ double interpolate(const Array<double, 1> &x, const Array<double, 1> &y, double 
 	return y(index) + (y(index + 1) - y(index)) / (x(index + 1) - x(index)) * (xa - x(index));
 }
 
-profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::coreimpur &coreimpur,
-		const ItmNs::Itm::equilibrium &equilibrium) {
+profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::coreimpur &coreimpur) {
 
 	profile pro;
 
-	// read electron density profile length of dataset: cells	
+	// read electron density profile length of dataset: cells
 	int cells = coreprof.ne.value.rows();
 	
 	// read electron temperature profile length of dataset, comparing with cells
@@ -72,10 +71,8 @@ profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::c
 		celll.electron_density = coreprof.ne.value(rho);
 		celll.electron_temperature = coreprof.te.value(rho);
 		
-		// local electric field
-		celll.electric_field = coreprof.profiles1d.eparallel.value(rho) * coreprof.toroid_field.b0
-				/ interpolate(equilibrium.profiles_1d.rho_tor, equilibrium.profiles_1d.b_av,
-						coreprof.rho_tor(rho));
+		// parallel electric field
+		celll.electric_field = coreprof.profiles1d.eparallel.value(rho);
 
 		// total sum of electric charge in a rho cell for all ion population
 		celll.effective_charge = 0.0;
