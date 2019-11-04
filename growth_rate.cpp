@@ -4,6 +4,7 @@
 #include "constants.h"
 #include "growth_rate.h"
 #include "critical_field.h"
+#include "codeparams.h"
 
 /*
 Growth rate warning
@@ -14,10 +15,7 @@ If the growth rate exceeds the limit value this warning raises.
 
 */
 
-int is_growth_rate_over_limit(profile pro, double limit) {
-
-	// maximal normalised minor radius
-	double rho_max = 0.95;
+int is_growth_rate_over_limit(profile pro, double limit, double rho_max) {
 	
 	for (std::vector<cell>::iterator it = pro.begin(); it != pro.end(); ++it) {
 		if ( (calculate_growth_rate(it->electron_density, it->electron_temperature,
