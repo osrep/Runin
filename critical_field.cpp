@@ -10,10 +10,7 @@ The module outputs an integer value (0 or 1) which indicates, whether electric f
 
 */
 
-int is_field_critical(profile pro) {
-
-	// maximal normalised minor radius
-	double rho_max = 0.95;
+int is_field_critical(profile pro, double rho_max) {
 
 	for (std::vector<cell>::iterator it = pro.begin(); it != pro.end(); ++it) {
 		if ( (abs(it->electric_field)) > (calculate_critical_field(it->electron_density, it->electron_temperature) )

@@ -1,8 +1,8 @@
 <generactor.ActorGenerator>
   <version>R4.2.8</version>
-  <paramFile>empty</paramFile>
-  <defaultparamFile>empty</defaultparamFile>
-  <paramXsdFile>empty</paramXsdFile>
+  <paramFile>xml/runin.xml</paramFile>
+  <defaultparamFile>xml/runin.xml</defaultparamFile>
+  <paramXsdFile>xml/runin.xsd</paramXsdFile>
   <fFile>librunin.a</fFile>
   <mainLibraryOptim></mainLibraryOptim>
   <HasOptim>false</HasOptim>
@@ -49,15 +49,6 @@
             <string>coreimpur</string>
           </vector>
           <vector>
-            <string>double</string>
-            <string>1</string>
-            <string>0</string>
-            <string>0</string>
-            <string>1</string>
-            <string>0</string>
-            <string>growth_rate_limit</string>
-          </vector>
-          <vector>
             <string>integer</string>
             <string>0</string>
             <string>0</string>
@@ -86,9 +77,11 @@
   <semantic>Itm</semantic>
   <compiler>g++</compiler>
   <libraries/>
-  <systemLibraries/>
+  <systemLibraries>
+    <string>xmllib-gcc</string>
+  </systemLibraries>
   <lang>c</lang>
-  <HasCodeParam>false</HasCodeParam>
+  <HasCodeParam>true</HasCodeParam>
   <MPI>false</MPI>
   <OPENMP>false</OPENMP>
   <BATCH>false</BATCH>
