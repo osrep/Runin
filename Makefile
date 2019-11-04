@@ -5,9 +5,11 @@ CXXFLAGS = -pthread -g -fPIC
 ifeq ($(ITM_ENVIRONMENT_LOADED), yes)
     CXXFLAGS += $(shell eval-pkg-config --cflags ual-cpp-gnu --cflags itmconstants)
     CXXFLAGS +=-DITM_CONSTANTS
-    LDFLAGS = $(shell eval-pkg-config --libs ual-cpp-gnu)    
+    CXXFLAGS += -I$(ITM_XMLLIB_DIR)/$(ITM_XMLLIB_VERSION)/$(DATAVERSION)/include/
+    LDFLAGS = $(shell eval-pkg-config --libs ual-cpp-gnu xmllib-$(ITM_INTEL_OBJECTCODE))
+    CXXFLAGS += $(shell eval-pkg-config --cflags xmllib-$(ITM_INTEL_OBJECTCODE)) -lTreeShr -lTdiShr -lXTreeShr
     all:  librunin.a
-    test: runin.o cpo_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_cpo.o
+    test: runin.o codeparams.o cpo_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_cpo.o
 	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
     $(info *** Compiler set to ITM *** )    
 else ifeq ($(IMAS_ENVIRONMENT_LOADED), yes)
@@ -26,7 +28,7 @@ else
     $(info *** Compiler set to IMAS (no imas-constants) *** )
 endif
 
-librunin.a:      runin.o      cpo_utils.o critical_field.o growth_rate.o
+librunin.a:      runin.o   codeparams.o cpo_utils.o critical_field.o growth_rate.o 
 	ar -rvs $@ $^
 	
 librunin_imas.a: runin_imas.o ids_utils.o critical_field.o growth_rate.o
