@@ -12,7 +12,7 @@
 
 using namespace std;
 
-double read_codeparams(ItmNs::codeparam_t &codeparams){
+double get_rho_cutoff(ItmNs::codeparam_t &codeparams){
 
 	double rho_max;
 	DecITM::DecodeITMpar params(codeparams.parameters);
@@ -27,6 +27,23 @@ double read_codeparams(ItmNs::codeparam_t &codeparams){
 
 	return rho_max;
 }
+
+double get_growth_rate_limit(ItmNs::codeparam_t &codeparams){
+
+	double gr;
+	DecITM::DecodeITMpar params(codeparams.parameters);
+	std::string parameters;
+	parameters = params.get();
+
+	std::string str_growth_rate_limit = stream_xml_string(parameters, "growth_rate_limit");
+
+	double dbl_growth_rate_limit = atof(str_growth_rate_limit.c_str());
+
+	gr = dbl_growth_rate_limit;
+
+	return gr;
+}
+
 
 std::string split_string(std::string s, std::string ref){
 
@@ -43,7 +60,7 @@ std::string split_string(std::string s, std::string ref){
 			token2 = token.substr(0, pos2);
 			token.erase(0, pos2 + delimiter2.length());
 			if (!token2.compare(ref)){
-				std::cout <<"  [Runaway Fluid] \t Code Parameter for  "<<token2<<" is "<< token << std::endl;
+				std::cout <<"  [Runaway Indicator] \t Code Parameter for  "<<token2<<" is "<< token << std::endl;
 				xml_value = token;
 			}
 		}

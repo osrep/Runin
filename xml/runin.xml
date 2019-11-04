@@ -4,7 +4,8 @@
 <parameters>
   <runaway_indicator_input>
       <limits>
-	<rho_edge_calculation_limit>0.85</rho_edge_calculation_limit>          
+	<rho_edge_calculation_limit>0.85</rho_edge_calculation_limit>
+	<growth_rate_limit>1e12</growth_rate_limit>
       </limits>
   </runaway_indicator_input>
 </parameters>

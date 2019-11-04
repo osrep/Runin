@@ -18,11 +18,14 @@ main function
 fix time label
 
 */
-void fire(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur, double &growth_rate_limit,
+void fire(ItmNs::Itm::coreprof &coreprof, ItmNs::Itm::coreimpur &coreimpur,
 		int &critical_field_warning, int &growth_rate_warning, ItmNs::codeparam_t &codeparams) {
 
 	// set maximum rho value from codeparams
-	double rho_max = read_codeparams(codeparams);
+	double rho_max = get_rho_cutoff(codeparams);
+
+	// set the growth rate limit from codeparams
+	double growth_rate_limit = get_growth_rate_limit(codeparams);
 
 	try {
 	// critical field: is_field_critical

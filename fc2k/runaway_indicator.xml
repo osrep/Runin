@@ -49,15 +49,6 @@
             <string>coreimpur</string>
           </vector>
           <vector>
-            <string>double</string>
-            <string>1</string>
-            <string>0</string>
-            <string>0</string>
-            <string>1</string>
-            <string>0</string>
-            <string>growth_rate_limit</string>
-          </vector>
-          <vector>
             <string>integer</string>
             <string>0</string>
             <string>0</string>

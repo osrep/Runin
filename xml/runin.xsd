@@ -38,6 +38,7 @@
     <xs:complexType>
       <xs:all>
         <xs:element ref="rho_edge_calculation_limit"/>
+	<xs:element ref="growth_rate_limit"/>
       </xs:all>
     </xs:complexType>
   </xs:element>
@@ -54,7 +55,19 @@
         <xs:maxInclusive value="1"/>
       </xs:restriction>
     </xs:simpleType>
-  </xs:element>  
+  </xs:element>
+
+  <xs:element name="growth_rate_limit">   
+    <xs:annotation>
+      <xs:documentation>
+        Limit for giving growth rate warning
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="xs:integer">
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
 
 </xs:schema>
 
