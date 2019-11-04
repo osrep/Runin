@@ -4,9 +4,6 @@
 #include "constants.h"
 #include "growth_rate.h"
 #include "critical_field.h"
-#include "codeparams.h"
-
-#include <unistd.h>
 
 /*
 Growth rate warning
@@ -32,7 +29,7 @@ int is_growth_rate_over_limit(profile pro, double limit, double rho_max) {
 double calculate_growth_rate(double electron_density, double electron_temperature,
 							 double effective_charge, double electric_field) {
 	
-	double gr;
+	double growth_rate;
 
 	// diffusion time
 	double thermal_electron_collision_time = calculate_thermal_electron_collision_time(electron_density, electron_temperature);
@@ -41,8 +38,9 @@ double calculate_growth_rate(double electron_density, double electron_temperatur
 
 	// growth rate
 	double me_c2 = ITM_ME * pow(ITM_C, 2);
-	gr = electron_density / thermal_electron_collision_time * pow(me_c2 / (2.0 * electron_temperature*ITM_EV), 1.5)
+	growth_rate = electron_density / thermal_electron_collision_time * pow(me_c2 / (2.0 * electron_temperature*ITM_EV), 1.5)
 			* pow(dreicer_field / electric_field, 3.0 * (1.0 + effective_charge) / 16.0)
 			* exp(-dreicer_field / (4.0 * electric_field) - sqrt((1.0 + effective_charge) * dreicer_field / electric_field));
-	return gr;
+
+	return growth_rate;
 }

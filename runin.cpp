@@ -10,9 +10,6 @@
 #include "growth_rate.h"
 #include "codeparams.h"
 
-#include <unistd.h>
-
-
 /*
 main function
 fix time label

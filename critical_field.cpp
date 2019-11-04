@@ -3,7 +3,6 @@
 #include "constants.h"
 #include "critical_field.h"
 #include "products.h"
-#include "codeparams.h"
 
 /* Critical field warning
 
