@@ -36,10 +36,10 @@ double calculate_coulomb_log(double electron_density, double electron_temperatur
 	return 14.9 - 0.5 * log(electron_density * 1e-20) + log(electron_temperature * 1e-3);
 }
 
-double calculate_dreicer_field(double thermal_electron_collision_time, double electron_temperature){
+double calculate_dreicer_field(double electron_density, double electron_temperature){
 
 	// Dreicer field
-	return me2_c3__e /  (thermal_electron_collision_time * electron_temperature * ITM_EV);
+	return  calculate_critical_field(electron_density, electron_temperature) * me_c2 / electron_temperature / ITM_EV ;
 }
 
 double calculate_thermal_electron_collision_time(double electron_density, double electron_temperature){
