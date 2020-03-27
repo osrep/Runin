@@ -96,7 +96,19 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
 	int N_rho_tor_norm = core_profiles.profiles_1d(timeindex).grid.rho_tor_norm.rows();
 	
 	int N_rho = (N_rho_tor>N_rho_tor_norm)?N_rho_tor:N_rho_tor_norm;
-	
+
+	// read electron density profile length of dataset, comparing with N_rho
+	if (core_profiles.profiles_1d(timeindex).electrons.density.rows() != N_rho)
+		throw std::invalid_argument("Number of values is different in coreprof rho cordinates and electron density.");
+
+	// read electron temperature profile length of dataset, comparing with N_rho
+	if (core_profiles.profiles_1d(timeindex).electrons.temperature.rows() != N_rho)
+		throw std::invalid_argument("Number of values is different in coreprof rho cordinates and electron temperature.");
+
+	// read eparallel profile length of dataset, comparing with N_rho
+	if (core_profiles.profiles_1d(timeindex).e_field.parallel.rows() != N_rho)
+		throw std::invalid_argument(
+				"Number of values is different in coreprof rho coordinates and eparallel.");	
 	
     // read data in every rho 
 	for (int i = 0; i < N_rho; i++) {
