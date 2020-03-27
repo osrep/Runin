@@ -17,8 +17,6 @@ fix time label
 void fire(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equilibrium, 
         double &growth_rate_limit,	int &critical_field_warning, int &growth_rate_warning) {
 
-	double rho_max = 0.95;
-
 	try {
 	// critical field: is_field_critical
 		critical_field_warning = is_field_critical(
