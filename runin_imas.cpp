@@ -20,11 +20,11 @@ void fire(IdsNs::IDS::core_profiles &core_profiles, IdsNs::IDS::equilibrium &equ
 	try {
 	// critical field: is_field_critical
 		critical_field_warning = is_field_critical(
-				ids_to_profile(core_profiles, equilibrium,0), rho_max);
+				ids_to_profile(core_profiles, equilibrium,0));
 
 	// growth rate: is_growth_rate_over_limit
 		growth_rate_warning = is_growth_rate_over_limit(
-				ids_to_profile(core_profiles, equilibrium,0), growth_rate_limit, rho_max);
+				ids_to_profile(core_profiles, equilibrium,0), growth_rate_limit);
 
 	} catch (const std::exception& ex) {
 		std::cerr << "ERROR An error occurred during firing actor Runaway Indicator." << std::endl;
