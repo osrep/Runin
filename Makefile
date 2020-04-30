@@ -13,15 +13,15 @@ ifeq ($(ITM_ENVIRONMENT_LOADED), yes)
 	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
     $(info *** Compiler set to ITM *** )    
 else ifeq ($(IMAS_ENVIRONMENT_LOADED), yes)
-    CXXFLAGS += $(shell pkg-config --cflags imas-cpp blitz imas-constants-cpp)
-    LDFLAGS = $(shell pkg-config --libs imas-cpp blitz)    
+    CXXFLAGS += $(shell pkg-config --cflags imas-cpp blitz imas-constants-cpp libxml-2.0 xmllib)
+    LDFLAGS = $(shell pkg-config --libs imas-cpp blitz libxml-2.0 xmllib)    
     all: librunin_imas.a
     test: runin_imas.o ids_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_ids.o
 	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
     $(info *** Compiler set to IMAS *** )
 else
-    CXXFLAGS += $(shell pkg-config --cflags imas-cpp blitz)
-    LDFLAGS = $(shell pkg-config --libs imas-cpp blitz)    
+    CXXFLAGS += $(shell pkg-config --cflags imas-cpp blitz libxml-2.0 xmllib)
+    LDFLAGS = $(shell pkg-config --libs imas-cpp blitz libxml-2.0 xmllib)    
     all: librunin_imas.a
     test: runin_imas.o ids_utils.o critical_field.o growth_rate.o test/test_phys.o test/test_ids.o
 	    $(CXX) $(LDFLAGS) -L$(GTEST)/ -lgtest_main $^ -lgtest -o test.bin
@@ -31,7 +31,7 @@ endif
 librunin.a:      runin.o   codeparams.o cpo_utils.o critical_field.o growth_rate.o 
 	ar -rvs $@ $^
 	
-librunin_imas.a: runin_imas.o ids_utils.o critical_field.o growth_rate.o
+librunin_imas.a: runin_imas.o DecodeITMpar.o codeparams_imas.o ids_utils.o critical_field.o growth_rate.o
 	ar -rvs $@ $^
 	
 test/test_phys.o: test/test_phys.cpp
