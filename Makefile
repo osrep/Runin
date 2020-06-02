@@ -31,7 +31,7 @@ endif
 librunin.a:      runin.o   codeparams.o cpo_utils.o critical_field.o growth_rate.o 
 	ar -rvs $@ $^
 	
-librunin_imas.a: runin_imas.o DecodeITMpar.o codeparams_imas.o ids_utils.o critical_field.o growth_rate.o
+librunin_imas.a: runin_imas.o codeparams_imas.o ids_utils.o critical_field.o growth_rate.o
 	ar -rvs $@ $^
 	
 test/test_phys.o: test/test_phys.cpp
