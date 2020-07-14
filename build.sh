@@ -3,7 +3,10 @@
 ########## compiling code #########
 
 # without test files
-make
+mkdir build && cd build
+cmake .. && make
+
+
 
 # with test files - Disabled due to lack of central gtest installation
 # make test
