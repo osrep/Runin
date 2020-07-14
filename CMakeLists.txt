@@ -35,14 +35,26 @@ if($ENV{ITM_ENVIRONMENT_LOADED})
 			 ext/Runaphys/src/critical_field.cpp
 			 ext/Runaphys/src/growth_rate.cpp)
 	add_library(runin ${SOURCE_FILES})	
-endif()
-if($ENV{IMAS_ENVIRONMENT_LOADED})
+elseif($ENV{IMAS_ENVIRONMENT_LOADED})
 	message("###Compiler set to IMAS###")
 	execute_process(COMMAND tcsh -c "pkg-config --cflags imas-cpp blitz imas-constants-cpp libxml-2.0 xmllib"
 			OUTPUT_VARIABLE shell_script1)
 	execute_process(COMMAND tcsh -c "pkg-config --libs imas-cpp blitz libxml-2.0 xmllib"
 			OUTPUT_VARIABLE shell_script2)
-	message(${shell_script1})
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${shell_script1}")
+	set(CMAKE_EXE_LINKER_FLAGS_INIT "${shell_script2}")
+	set(SOURCE_FILES src/runin_imas.cpp
+			 src/codeparams_imas.cpp
+			 src/ids_utils.cpp
+			 ext/Runaphys/src/critical_field.cpp
+			 ext/Runaphys/src/growth_rate.cpp)
+	add_library(runin_imas ${SOURCE_FILES})
+else()
+	message("###Compiler set to IMAS (no imas-constants)###")
+	execute_process(COMMAND tcsh -c "pkg-config --cflags imas-cpp blitz libxml-2.0 xmllib"
+			OUTPUT_VARIABLE shell_script1)
+	execute_process(COMMAND tcsh -c "pkg-config --libs imas-cpp blitz libxml-2.0 xmllib"
+			OUTPUT_VARIABLE shell_script2)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${shell_script1}")
 	set(CMAKE_EXE_LINKER_FLAGS_INIT "${shell_script2}")
 	set(SOURCE_FILES src/runin_imas.cpp
