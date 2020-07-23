@@ -7,7 +7,7 @@
 #include "DecodeITMpar.h"		
 #include <unistd.h>
 #include "H5Cpp.h"
-#include "../include/codeparams_imas.h"
+#include "codeparams_imas.h"
 #include <stdlib.h>
 
 using namespace std;

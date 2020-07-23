@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include "../include/ids_utils.h"
+#include "ids_utils.h"
 
 bool equal(double a, double b, double tolerance) {
 	return abs(a - b) * 2.0 <= (abs(a) + abs(b)) * tolerance;

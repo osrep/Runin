@@ -4,11 +4,11 @@
 #include <stdexcept>
 #include <UALClasses.h>
 #include <vector>
-#include "../ext/Runaphys/include/constants.h"
-#include "../include/cpo_utils.h"
-#include "../ext/Runaphys/include/critical_field.h"
-#include "../ext/Runaphys/include/growth_rate.h"
-#include "../include/codeparams.h"
+#include "constants.h"
+#include "cpo_utils.h"
+#include "critical_field.h"
+#include "growth_rate.h"
+#include "codeparams.h"
 
 /*
 main function

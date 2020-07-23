@@ -20,7 +20,6 @@ if($ENV{ITM_ENVIRONMENT_LOADED})
 			OUTPUT_VARIABLE shell_script1)	
 	execute_process(COMMAND tcsh -c "eval-pkg-config --libs ual-cpp-gnu xmllib-$ITM_INTEL_OBJECTCODE"
 			OUTPUT_VARIABLE shell_script2)
-	
 	include_directories($ENV{ITM_XMLLIB_DIR}/$ENV{ITM_XMLLIB_VERSION}/$ENV{DATAVERSION}/include/)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lTreeShr")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lTdiShr")
@@ -29,6 +28,8 @@ if($ENV{ITM_ENVIRONMENT_LOADED})
 	set(CMAKE_EXE_LINKER_FLAGS_INIT ${shell_script2})
 	add_definitions(-DITM_CONSTANTS)
 
+	include_directories("include")
+	include_directories("ext/Runaphys/include")
 	set(SOURCE_FILES src/runin.cpp
 			 src/codeparams.cpp
 			 src/cpo_utils.cpp
@@ -48,6 +49,8 @@ elseif($ENV{IMAS_ENVIRONMENT_LOADED})
 			 src/ids_utils.cpp
 			 ext/Runaphys/src/critical_field.cpp
 			 ext/Runaphys/src/growth_rate.cpp)
+	include_directories("include")
+	include_directories("ext/Runaphys/include")
 	add_library(runin_imas ${SOURCE_FILES})
 else()
 	message("###Compiler set to IMAS (no imas-constants)###")
@@ -62,5 +65,7 @@ else()
 			 src/ids_utils.cpp
 			 ext/Runaphys/src/critical_field.cpp
 			 ext/Runaphys/src/growth_rate.cpp)
+	include_directories("include")
+	include_directories("ext/Runaphys/include")
 	add_library(runin_imas ${SOURCE_FILES})
 endif()

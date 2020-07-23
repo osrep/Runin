@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include "../include/cpo_utils.h"
+#include "cpo_utils.h"
 
 
 bool equal(double a, double b, double tolerance) {
