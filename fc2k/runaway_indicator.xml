@@ -3,7 +3,7 @@
   <paramFile>xml/runin.xml</paramFile>
   <defaultparamFile>xml/runin.xml</defaultparamFile>
   <paramXsdFile>xml/runin.xsd</paramXsdFile>
-  <fFile>librunin.a</fFile>
+  <fFile>build/librunin.a</fFile>
   <mainLibraryOptim></mainLibraryOptim>
   <HasOptim>false</HasOptim>
   <subrt>fire</subrt>

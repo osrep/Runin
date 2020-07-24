@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "../ids_utils.h"
-#include "../critical_field.h"
-#include "../growth_rate.h"
+#include "ids_utils.h"
+#include "critical_field.h"
+#include "growth_rate.h"
 
 const double reference_te = 1e5;
 const double reference_ne = 1e21;
