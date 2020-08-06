@@ -5,82 +5,75 @@ project(Runin VERSION 2.0.0
 
 set(CMAKE_CXX_STANDARD 11)
 
-#set(CMAKE_CXX_FLAGS "-pthread -g -fPIC -std=gnu++11")
-
-function(add_gateway_flag)
-	cmake_parse_arguments(PARSED_ARGS 
-				""
-				"INPUT;TO"
-				""
-				${ARGN})
-	string(LENGTH ${PARSED_ARGS_INPUT} str_len)
-	math(EXPR str_new_len ${str_len}-1)
-	string(SUBSTRING ${PARSED_ARGS_INPUT} 0 ${str_new_len} output1)
-	if(${PARSED_ARGS_TO} STREQUAL CMAKE_CXX_FLAGS)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${output1}" PARENT_SCOPE)
-	else(${PARSED_ARGS_TO} STREQUAL CMAKE_EXE_LINKER_FLAGS)
-		set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${output1}" PARENT_SCOPE)
-	else()
-		message(FATAL_ERROR "Invalid input at add_gateway_flag. Invalid input: ${PARSED_ARGS_TO}")
-	endif()
-endfunction(add_gateway_flag)
+include(cmake/AddGatewayFlagFunction.cmake)
 
 #ITM Enviroment 
 if($ENV{ITM_ENVIRONMENT_LOADED})
 	message("###Compiler set to ITM###")
+
 	execute_process(COMMAND tcsh -c "eval-pkg-config --cflags ual-cpp-gnu --cflags itmconstants --cflags xmllib-$ITM_INTEL_OBJECTCODE"
 			OUTPUT_VARIABLE shell_script1)	
 	execute_process(COMMAND tcsh -c "eval-pkg-config --libs ual-cpp-gnu xmllib-$ITM_INTEL_OBJECTCODE"
 			OUTPUT_VARIABLE shell_script2)
+
 	add_gateway_flag(INPUT ${shell_script1} TO CMAKE_CXX_FLAGS)
 	add_gateway_flag(INPUT ${shell_script2} TO CMAKE_EXE_LINKER_FLAGS)
+
 	include_directories($ENV{ITM_XMLLIB_DIR}/$ENV{ITM_XMLLIB_VERSION}/$ENV{DATAVERSION}/include/)
+	include_directories("include" "ext/Runaphys/include")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DITM_CONSTANTS")
-	include_directories("include")
-	include_directories("ext/Runaphys/include")
+
 	set(SOURCE_FILES src/runin.cpp
 			 src/codeparams.cpp
 			 src/cpo_utils.cpp
 			 ext/Runaphys/src/critical_field.cpp
 			 ext/Runaphys/src/growth_rate.cpp)
+
 	add_library(runin ${SOURCE_FILES})	
 #IMAS environment 
 elseif($ENV{IMAS_ENVIRONMENT_LOADED})
 	message("###Compiler set to IMAS###")
+
 	execute_process(COMMAND tcsh -c "pkg-config --cflags imas-cpp blitz imas-constants-cpp libxml-2.0 xmllib"
 			OUTPUT_VARIABLE shell_script1)
 	execute_process(COMMAND tcsh -c "pkg-config --libs imas-cpp blitz libxml-2.0 xmllib"
 			OUTPUT_VARIABLE shell_script2)
+
 	add_gateway_flag(INPUT ${shell_script1} TO CMAKE_CXX_FLAGS)
 	add_gateway_flag(INPUT ${shell_script2} TO CMAKE_EXE_LINKER_FLAGS)
+
+	include_directories("include" "ext/Runaphys/include")
+
 	set(SOURCE_FILES src/runin_imas.cpp
 			 src/codeparams_imas.cpp
 			 src/ids_utils.cpp
 			 ext/Runaphys/src/critical_field.cpp
 			 ext/Runaphys/src/growth_rate.cpp)
-	include_directories("include")
-	include_directories("ext/Runaphys/include")
 	add_library(runin_imas ${SOURCE_FILES})
 #IMAS environment (no imas constants)
 else()
 	message("###Compiler set to IMAS (no imas-constants)###")
+
 	execute_process(COMMAND tcsh -c "pkg-config --cflags imas-cpp blitz libxml-2.0 xmllib"
 			OUTPUT_VARIABLE shell_script1)
 	execute_process(COMMAND tcsh -c "pkg-config --libs imas-cpp blitz libxml-2.0 xmllib"
 			OUTPUT_VARIABLE shell_script2)
+
 	add_gateway_flag(INPUT ${shell_script1} TO CMAKE_CXX_FLAGS)
 	add_gateway_flag(INPUT ${shell_script2} TO CMAKE_EXE_LINKER_FLAGS)
+
+	include_directories("include" "ext/Runaphys/include")
+
 	set(SOURCE_FILES src/runin_imas.cpp
 			 src/codeparams_imas.cpp
 			 src/ids_utils.cpp
 			 ext/Runaphys/src/critical_field.cpp
 			 ext/Runaphys/src/growth_rate.cpp)
-	include_directories("include")
-	include_directories("ext/Runaphys/include")
+
 	add_library(runin_imas ${SOURCE_FILES})
-	
 endif()
 
+#Use the -DTESTING_ENABLED=yes flag if you want to build the tests
 if(TESTING_ENABLED)
 	add_subdirectory(test)
 endif()
