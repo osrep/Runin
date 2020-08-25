@@ -6,21 +6,19 @@ project(Runin VERSION 2.0.0
 set(CMAKE_CXX_STANDARD 11)
 
 include(cmake/AddGatewayFlagFunction.cmake)
-include(FindPkgConfig)
+
 
 #ITM Enviroment 
 if($ENV{ITM_ENVIRONMENT_LOADED})
 	message("###Compiler set to ITM###")
 
-	pkg_check_modules(GATEWAY_FLAGS ual-cpp-gnu itmconstants xmllib-$ENV{ITM_INTEL_OBJECTCODE})
-	string(REPLACE ";" " " GATEWAY_FLAGS_CFLAGS "${GATEWAY_FLAGS_CFLAGS}")
-	string(REPLACE ";" " " GATEWAY_FLAGS_LDFLAGS "${GATEWAY_FLAGS_LDFLAGS}")
+	execute_process(COMMAND tcsh -c "eval-pkg-config --cflags ual-cpp-gnu --cflags itmconstants --cflags xmllib-$ITM_INTEL_OBJECTCODE"
+			OUTPUT_VARIABLE shell_script1)	
+	execute_process(COMMAND tcsh -c "eval-pkg-config --libs ual-cpp-gnu xmllib-$ITM_INTEL_OBJECTCODE"
+			OUTPUT_VARIABLE shell_script2)
 
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GATEWAY_FLAGS_CFLAGS}")
-	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GATEWAY_FLAGS_LDFLAGS}")
-
-	message("${GATEWAY_FLAGS}")
-	message("linkers:${CMAKE_EXE_LINKER_FLAGS}")
+	add_gateway_flag(INPUT ${shell_script1} TO CMAKE_CXX_FLAGS)
+	add_gateway_flag(INPUT ${shell_script2} TO CMAKE_EXE_LINKER_FLAGS)
 
 	include_directories($ENV{ITM_XMLLIB_DIR}/$ENV{ITM_XMLLIB_VERSION}/$ENV{DATAVERSION}/include/)
 	include_directories("include" "ext/Runaphys/include")
