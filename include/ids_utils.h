@@ -2,7 +2,7 @@
 #define IDS_UTILS_H_
 
 #include <UALClasses.h>
-#include "cell.h"
+#include "plasma_structures.h"
 
 bool equal(double a, double b, double tolerance);
 
@@ -12,6 +12,6 @@ double interpolate(const Array<double, 1> &x, const Array<double, 1> &y, double 
 
 double fill_rho_tor_norm(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int cpindex, int timeindex);
 		
-profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex);
+plasma_profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex);
 
 #endif /* IDS_UTILS_H_ */
