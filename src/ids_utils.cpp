@@ -87,9 +87,9 @@ double fill_rho_tor_norm(const IdsNs::IDS::core_profiles &core_profiles, const I
 
 // IMAS utilities
 
-profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex){
+plasma_profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const IdsNs::IDS::equilibrium &equilibrium, int timeindex){
 
-	profile pro;
+	plasma_profile pro;
 
 	//! read electron density profile length of dataset: N_rho
 	int N_rho_tor = core_profiles.profiles_1d(timeindex).grid.rho_tor.rows();
@@ -112,7 +112,7 @@ profile ids_to_profile(const IdsNs::IDS::core_profiles &core_profiles, const Ids
 	
     // read data in every rho 
 	for (int i = 0; i < N_rho; i++) {
-		cell celll;
+		plasma_local celll;
 		celll.rho = fill_rho_tor_norm(core_profiles, equilibrium, i, timeindex);
 		celll.electron_density = core_profiles.profiles_1d(timeindex).electrons.density(i);
 		celll.electron_temperature = core_profiles.profiles_1d(timeindex).electrons.temperature(i);

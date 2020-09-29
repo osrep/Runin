@@ -48,9 +48,9 @@ double interpolate(const Array<double, 1> &x, const Array<double, 1> &y, double 
 	return y(index) + (y(index + 1) - y(index)) / (x(index + 1) - x(index)) * (xa - x(index));
 }
 
-profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::coreimpur &coreimpur) {
+plasma_profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::coreimpur &coreimpur) {
 
-	profile pro;
+	plasma_profile pro;
 
 	// read electron density profile length of dataset: cells
 	int cells = coreprof.ne.value.rows();
@@ -67,7 +67,7 @@ profile cpo_to_profile(const ItmNs::Itm::coreprof &coreprof, const ItmNs::Itm::c
     // read data in every rho 
 
 	for (int rho = 0; rho < cells; rho++) {
-		cell celll;
+		plasma_local celll;
 		celll.electron_density = coreprof.ne.value(rho);
 		celll.electron_temperature = coreprof.te.value(rho);
 		
