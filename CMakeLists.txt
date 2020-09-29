@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 include(cmake/AddGatewayFlagFunction.cmake)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC ")
 
 #ITM Enviroment 
 if($ENV{ITM_ENVIRONMENT_LOADED})
