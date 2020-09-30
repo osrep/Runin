@@ -29,7 +29,8 @@ if($ENV{ITM_ENVIRONMENT_LOADED})
 			 src/codeparams.cpp
 			 src/cpo_utils.cpp
 			 ext/Runaphys/src/critical_field.cpp
-			 ext/Runaphys/src/growth_rate.cpp)
+			 ext/Runaphys/src/growth_rate.cpp
+			 ext/Runaphys/src/checks.cpp)
 
 	add_library(runin ${SOURCE_FILES})	
 #IMAS environment 
@@ -50,7 +51,8 @@ elseif($ENV{IMAS_ENVIRONMENT_LOADED})
 			 src/codeparams_imas.cpp
 			 src/ids_utils.cpp
 			 ext/Runaphys/src/critical_field.cpp
-			 ext/Runaphys/src/growth_rate.cpp)
+			 ext/Runaphys/src/growth_rate.cpp
+			 ext/Runaphys/src/checks.cpp)
 	add_library(runin_imas ${SOURCE_FILES})
 else()
 	message(FATAL_ERROR "###Neither ITM or IMAS loaded###")
