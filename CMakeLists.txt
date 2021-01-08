@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
 project(Runin VERSION 2.0.0
               LANGUAGES CXX)
 
@@ -13,9 +15,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC ")
 if($ENV{ITM_ENVIRONMENT_LOADED})
 	message("###Compiler set to ITM###")
 
-	execute_process(COMMAND tcsh -c "eval-pkg-config --cflags ual-cpp-gnu --cflags itmconstants --cflags xmllib-$ITM_INTEL_OBJECTCODE"
+	execute_process(COMMAND tcsh -c "eval-pkg-config --cflags ual-cpp-gnu --cflags itmconstants --cflags xmllib-$ENV{ITM_GCC_OBJECTCODE}"
 			OUTPUT_VARIABLE shell_script1)	
-	execute_process(COMMAND tcsh -c "eval-pkg-config --libs ual-cpp-gnu xmllib-$ITM_INTEL_OBJECTCODE"
+	execute_process(COMMAND tcsh -c "eval-pkg-config --libs ual-cpp-gnu xmllib-$ENV{ITM_GCC_OBJECTCODE}"
 			OUTPUT_VARIABLE shell_script2)
 
 	add_gateway_flag(INPUT ${shell_script1} TO CMAKE_CXX_FLAGS)
